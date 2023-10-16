@@ -31,8 +31,20 @@ export default function LoginPage() {
         >
           Login
         </Text>
-        <Input w={"90%"} backgroundColor={"#EDF2F7"} borderRadius={"3%"} placeholder="Username or Email" fontSize={"16px"}/>
-        <Input w={"90%"} backgroundColor={"#EDF2F7"} borderRadius={"3%"} placeholder="Password" fontSize={"16px"}/>
+        <Input
+          w={"90%"}
+          backgroundColor={"#EDF2F7"}
+          borderRadius={"3%"}
+          placeholder="Username or Email"
+          fontSize={"16px"}
+        />
+        <Input
+          w={"90%"}
+          backgroundColor={"#EDF2F7"}
+          borderRadius={"3%"}
+          placeholder="Password"
+          fontSize={"16px"}
+        />
       </Flex>
     </Flex>
   );
