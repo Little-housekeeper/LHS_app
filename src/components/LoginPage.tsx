@@ -1,5 +1,9 @@
-import { Flex, Image, Text, Input } from "@chakra-ui/react";
+import { Flex, Image, Text, Input, Checkbox, Link } from "@chakra-ui/react";
 import TemplateImage from "../assets/images/TemplateImage.png";
+import FBIcon from "../assets/images/FBIcon.png";
+import GoogleIcon from "../assets/images/GoogleIcon.png";
+import PhoneIcon from "../assets/images/PhoneIcon.png";
+import VersaButton from "./VersaButton.tsx";
 
 export default function LoginPage() {
   return (
@@ -50,6 +54,46 @@ export default function LoginPage() {
           placeholder="Password"
           fontSize={"16px"}
         />
+        <Flex w={"90%"} justifyContent={"space-between"} alignItems={"center"}>
+          <Flex alignItems={"center"}>
+            <Checkbox fontFamily={"Gabarito"} color={"#989B9E"}>
+              <Text fontSize={"15px"}>Remember Me</Text>
+            </Checkbox>
+          </Flex>
+          <Text
+            fontFamily={"Gabarito"}
+            fontSize={"15px"}
+            fontWeight={500}
+            color={"#00A1CA"}
+            textAlign={"right"}
+          >
+            Forgot Password?
+          </Text>
+        </Flex>
+      </Flex>
+
+      {/* Login Buttons */}
+      <Flex
+        flexDir={"column"}
+        justify={"center"}
+        alignItems={"center"}
+        gap={"1em"}
+        padding={"1em"}
+      >
+        <VersaButton text={"Login"} size={"lg"} />
+        <Text
+          fontFamily={"Gabarito"}
+          fontSize={"15px"}
+          fontWeight={500}
+          textAlign={"right"}
+        >
+          Don't have an account? <Link color={"#00A1CA"}>Sign up</Link>
+        </Text>
+        <Flex justifyContent={"center"} gap={"1em"} w={"90%"}>
+          <Image src={GoogleIcon} w={"2em"} h={"2em"} />
+          <Image src={PhoneIcon} w={"2em"} h={"2em"} />
+          <Image src={FBIcon} w={"2em"} h={"2em"} />
+        </Flex>
       </Flex>
     </Flex>
   );
