@@ -1,4 +1,12 @@
-import { Flex, Image, Text, Input, Checkbox, Link } from "@chakra-ui/react";
+import {
+  Flex,
+  Image,
+  Text,
+  Input,
+  Checkbox,
+  Link,
+  Button,
+} from "@chakra-ui/react";
 import TemplateImage from "../assets/images/TemplateImage.png";
 import FBIcon from "../assets/images/FBIcon.png";
 import GoogleIcon from "../assets/images/GoogleIcon.png";
@@ -90,9 +98,15 @@ export default function LoginPage() {
           Don't have an account? <Link color={"#00A1CA"}>Sign up</Link>
         </Text>
         <Flex justifyContent={"center"} gap={"1em"} w={"90%"}>
-          <Image src={GoogleIcon} w={"2em"} h={"2em"} />
-          <Image src={PhoneIcon} w={"2em"} h={"2em"} />
-          <Image src={FBIcon} w={"2em"} h={"2em"} />
+          <Button bg={"none"} _hover={{ bg: "none" }}>
+            <Image src={GoogleIcon} w={"2em"} h={"2em"} />
+          </Button>
+          <Button bg={"none"} _hover={{ bg: "none" }}>
+            <Image src={PhoneIcon} w={"2em"} h={"2em"} />
+          </Button>
+          <Button bg={"none"} _hover={{ bg: "none" }}>
+            <Image src={FBIcon} w={"2em"} h={"2em"} />
+          </Button>
         </Flex>
       </Flex>
     </Flex>
