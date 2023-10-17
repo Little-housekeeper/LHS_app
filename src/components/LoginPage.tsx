@@ -4,6 +4,7 @@ import TemplateImage from "../assets/images/TemplateImage.png";
 export default function LoginPage() {
   return (
     <Flex direction="column" justifyContent="center" h={"100vh"} w={"100vw"}>
+      {/* title */}
       <Text
         fontFamily={"Gabarito"}
         fontWeight={800}
@@ -13,9 +14,13 @@ export default function LoginPage() {
       >
         VERSA
       </Text>
+
+      {/* image */}
       <Flex alignItems={"center"} justifyContent={"center"}>
         <Image src={TemplateImage} w={"20em"} h={"20em"} />
       </Flex>
+
+      {/* login fields */}
       <Flex
         flexDir={"column"}
         justifyContent={"center"}
@@ -31,8 +36,20 @@ export default function LoginPage() {
         >
           Login
         </Text>
-        <Input w={"90%"} backgroundColor={"#EDF2F7"} borderRadius={"3%"} placeholder="Username or Email" fontSize={"16px"}/>
-        <Input w={"90%"} backgroundColor={"#EDF2F7"} borderRadius={"3%"} placeholder="Password" fontSize={"16px"}/>
+        <Input
+          w={"90%"}
+          backgroundColor={"#EDF2F7"}
+          borderRadius={"3%"}
+          placeholder="Username or Email"
+          fontSize={"16px"}
+        />
+        <Input
+          w={"90%"}
+          backgroundColor={"#EDF2F7"}
+          borderRadius={"3%"}
+          placeholder="Password"
+          fontSize={"16px"}
+        />
       </Flex>
     </Flex>
   );
