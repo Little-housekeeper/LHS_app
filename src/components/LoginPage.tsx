@@ -1,4 +1,4 @@
-import { Flex, Image, Text, Button, Input, Link } from "@chakra-ui/react";
+import { Flex, Image, Text, Input } from "@chakra-ui/react";
 import TemplateImage from "../assets/images/TemplateImage.png";
 
 export default function LoginPage() {
