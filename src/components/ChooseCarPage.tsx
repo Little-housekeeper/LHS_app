@@ -1,19 +1,11 @@
-import {
-  Flex,
-  Image,
-  Text,
-  Button,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Flex, Image, Text, Button } from "@chakra-ui/react";
 import versa_map from "../assets/images/versa_map.png";
-import swap_icon from "../assets/images/swap_icon.png";
+import car_icon from "../assets/images/car_icon.png";
 import VersaButton from "./VersaButton";
 import { ArrowForwardIcon, InfoIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "./NavBar";
 
-const RideSharePage = () => {
+const ChooseCarPage = () => {
   // Implement your component logic here
   return (
     <>
@@ -25,7 +17,7 @@ const RideSharePage = () => {
           </Button>
           {/* Adjust the size as needed */}
           <Text fontSize="3xl" fontWeight="bold">
-            Ride Share
+            Choose Ride
           </Text>
 
           <Button
@@ -37,40 +29,48 @@ const RideSharePage = () => {
           {/* This is a placeholder to keep space between the Icon and Text */}
         </Flex>
 
-        {/* MAP */}
+        {/* BODY */}
         <Flex flexDir={"column"}>
           <Image src={versa_map}></Image>
           <Flex
-            marginY={10}
             alignItems={"center"}
             justifyContent={"center"}
-            gap={2}
+            flexDir={"column"}
+            gap={1}
+            p={2}
+            my={3}
           >
-            <Flex flexDir={"column"} w={"90%"}>
-              <Text as="b">From</Text>
-              <InputGroup mb={3}>
-                <InputRightElement pointerEvents="none">
-                  <InfoIcon boxSize={5} color="black" />
-                </InputRightElement>
-                <Input
-                  bg={"#C5D1DD"}
-                  defaultValue={"LAX International Airport"}
-                  isReadOnly={true}
-                />
-              </InputGroup>
-              <Text as="b">To</Text>
-              <Input placeholder="42 Wallaby Way, Irvine CA" />
+            <Flex alignItems={"center"} w={"full"} gap={3} pr={5}>
+              <Image src={car_icon} w={"100px"} />
+              <Flex
+                justifyContent={"space-between"}
+                w={"60%"}
+                fontWeight={"600"}
+                fontSize={"xl"}
+              >
+                <Text>4 Seater</Text>
+                <Text>$80</Text>
+              </Flex>
             </Flex>
-            <Button bg={"none"} p={0}>
-              <Image w={"35px"} src={swap_icon} />
-            </Button>
+            <Flex alignItems={"center"} w={"full"} gap={3} pr={5}>
+              <Image src={car_icon} w={"100px"} />
+              <Flex
+                justifyContent={"space-between"}
+                fontWeight={"600"}
+                w={"60%"}
+                fontSize={"xl"}
+              >
+                <Text>6 Seater</Text>
+                <Text>$90</Text>
+              </Flex>
+            </Flex>
           </Flex>
         </Flex>
-        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} />
+        <VersaButton text="CONFIRM RIDE" size="lg" />
       </Flex>
       <NavBar />
     </>
   );
 };
 
-export default RideSharePage;
+export default ChooseCarPage;

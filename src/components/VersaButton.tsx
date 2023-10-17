@@ -1,8 +1,7 @@
-import { Button, Text} from "@chakra-ui/react";
-
+import { Button, Text } from "@chakra-ui/react";
 
 interface Props {
-  text: string;
+  text?: string;
   icon?: React.ReactNode;
   size?: string;
 }
@@ -17,7 +16,7 @@ const VersaButton = ({ text, icon, size }: Props) => {
         size={size}
         borderRadius={"45px"}
       >
-        <Text>{text}</Text>
+        {text && <Text>{text}</Text>}
         {icon && icon}
       </Button>
     </>
