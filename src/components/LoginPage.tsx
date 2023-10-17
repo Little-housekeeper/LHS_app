@@ -1,9 +1,10 @@
-import { Flex, Image, Text, Button, Input, Link } from "@chakra-ui/react";
+import { Flex, Image, Text, Input } from "@chakra-ui/react";
 import TemplateImage from "../assets/images/TemplateImage.png";
 
 export default function LoginPage() {
   return (
     <Flex direction="column" justifyContent="center" h={"100vh"} w={"100vw"}>
+      {/* title */}
       <Text
         fontFamily={"Gabarito"}
         fontWeight={800}
@@ -13,9 +14,13 @@ export default function LoginPage() {
       >
         VERSA
       </Text>
+
+      {/* image */}
       <Flex alignItems={"center"} justifyContent={"center"}>
         <Image src={TemplateImage} w={"20em"} h={"20em"} />
       </Flex>
+
+      {/* login fields */}
       <Flex
         flexDir={"column"}
         justifyContent={"center"}
