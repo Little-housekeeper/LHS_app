@@ -1,7 +1,7 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
 import RideShareGraphic from "../assets/images/hompage/RideshareGraphic.png";
-import NavBar from "./NavBar";
-import VersaButton from "./VersaButton";
+import NavBar from "../components/NavBar";
+import VersaButton from "../components/VersaButton";
 
 export default function HomePage() {
   return (

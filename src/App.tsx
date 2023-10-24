@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import HomePage from "./components/HomePage";
-import RideSharePage from "./components/RideSharePage";
-import ChooseCarPage from "./components/ChooseCarPage";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import RideSharePage from "./pages/RideSharePage";
+import ChooseCarPage from "./pages/ChooseCarPage";
 
 function App() {
   return (

@@ -11,7 +11,7 @@ import TemplateImage from "../assets/images/TemplateImage.png";
 import FBIcon from "../assets/images/FBIcon.png";
 import GoogleIcon from "../assets/images/GoogleIcon.png";
 import PhoneIcon from "../assets/images/PhoneIcon.png";
-import VersaButton from "./VersaButton.tsx";
+import VersaButton from "../components/VersaButton.tsx";
 
 export default function LoginPage() {
   return (
