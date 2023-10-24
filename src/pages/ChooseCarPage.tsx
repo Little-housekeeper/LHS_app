@@ -1,9 +1,9 @@
 import { Flex, Image, Text, Button } from "@chakra-ui/react";
 import versa_map from "../assets/images/versa_map.png";
 import car_icon from "../assets/images/car_icon.png";
-import VersaButton from "./VersaButton";
+import VersaButton from "../components/VersaButton";
 import { ArrowForwardIcon, InfoIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import NavBar from "./NavBar";
+import NavBar from "../components/NavBar";
 
 const ChooseCarPage = () => {
   // Implement your component logic here
