@@ -5,6 +5,7 @@ import RideSharePage from "./pages/RideSharePage";
 import ChooseCarPage from "./pages/ChooseCarPage";
 import FeesPage from "./pages/FeesPage";
 import ChooseTimePage from "./pages/ChooseTimePage";
+import ConfirmationPage from "./pages/ConfirmationPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/choosecar" element={<ChooseCarPage />} />
         <Route path="/fees" element={<FeesPage />} />
         <Route path="/choosetime" element={<ChooseTimePage />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
       </Routes>
     </>
   );
