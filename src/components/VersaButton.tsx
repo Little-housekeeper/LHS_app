@@ -4,13 +4,14 @@ interface Props {
   text?: string;
   icon?: React.ReactNode;
   size?: string;
+  color?: string;
 }
 
-const VersaButton = ({ text, icon, size }: Props) => {
+const VersaButton = ({ text, icon, size, color = "#25283D" }: Props) => {
   return (
     <>
       <Button
-        bg={"#25283D"}
+        bg={color}
         color={"white"}
         gap={2}
         size={size}

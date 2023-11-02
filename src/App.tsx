@@ -6,6 +6,8 @@ import ChooseCarPage from "./pages/ChooseCarPage";
 import FeesPage from "./pages/FeesPage";
 import ChooseTimePage from "./pages/ChooseTimePage";
 import ConfirmationPage from "./pages/ConfirmationPage";
+import ActivityDetailsPage from "./pages/ActivityDetailsPage";
+import AwaitingDriverPage from "./pages/AwaitingDriverPage";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/fees" element={<FeesPage />} />
         <Route path="/choosetime" element={<ChooseTimePage />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
+        <Route path="/activitydetails" element={<ActivityDetailsPage />} />
+        <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
       </Routes>
     </>
   );
