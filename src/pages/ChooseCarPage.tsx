@@ -1,12 +1,46 @@
-import { Flex, Image, Text, Button } from "@chakra-ui/react";
-import versa_map from "../assets/images/versa_map.png";
-import car_icon from "../assets/images/car_icon.png";
+import { useState } from "react";
+import { Flex, Text, Button } from "@chakra-ui/react";
+// import versa_map from "../assets/images/versa_map.png";
 import VersaButton from "../components/VersaButton";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
+import CarOption from "../components/CarOption";
+
+//FAKE DATA FOR CARS
+const fakeData = [
+  { id: 1, carType: "4 Seater", price: 80 },
+  { id: 2, carType: "6 Seater", price: 90 },
+  { id: 3, carType: "6 Seater", price: 90 },
+  { id: 4, carType: "6 Seater", price: 90 },
+  { id: 5, carType: "6 Seater", price: 90 },
+];
+
+interface Car {
+  id: number;
+  carType: string;
+  price: number;
+}
 
 const ChooseCarPage = () => {
-  // Implement your component logic here
+  const [currentChosenCar, setCurrentChosenCar] = useState<Car | null>(null);
+
+  const handleCarOptionClick = (car: Car) => {
+    setCurrentChosenCar(car);
+  };
+
+  const carOptions = fakeData.map((car) => {
+    const isChosen = currentChosenCar && currentChosenCar.id === car.id;
+    return (
+      <CarOption
+        key={car.id}
+        carType={car.carType}
+        price={car.price}
+        isChosen={isChosen ? true : false}
+        onClick={() => handleCarOptionClick(car)}
+      />
+    );
+  });
+
   return (
     <>
       {/* HEADING */}
@@ -31,42 +65,28 @@ const ChooseCarPage = () => {
 
         {/* BODY */}
         <Flex flexDir={"column"}>
-          <Image src={versa_map}></Image>
+          <Flex p={12}>
+            <Text fontWeight="500">
+              A deposit of $30 is required to reserve your ride. The deposit
+              will be included in the overall cost of your trip.
+            </Text>
+          </Flex>
+
+          {/* CAR OPTIONS MAP */}
           <Flex
             alignItems={"center"}
-            justifyContent={"center"}
             flexDir={"column"}
             gap={1}
             p={2}
             my={3}
+            h={"40vh"}
+            mb={10}
+            overflowY={"scroll"}
           >
-            <Flex alignItems={"center"} w={"full"} gap={3} pr={5}>
-              <Image src={car_icon} w={"100px"} />
-              <Flex
-                justifyContent={"space-between"}
-                w={"60%"}
-                fontWeight={"600"}
-                fontSize={"xl"}
-              >
-                <Text>4 Seater</Text>
-                <Text>$80</Text>
-              </Flex>
-            </Flex>
-            <Flex alignItems={"center"} w={"full"} gap={3} pr={5}>
-              <Image src={car_icon} w={"100px"} />
-              <Flex
-                justifyContent={"space-between"}
-                fontWeight={"600"}
-                w={"60%"}
-                fontSize={"xl"}
-              >
-                <Text>6 Seater</Text>
-                <Text>$90</Text>
-              </Flex>
-            </Flex>
+            {carOptions}
           </Flex>
         </Flex>
-        <VersaButton text="CONFIRM RIDE" size="lg" />
+        <VersaButton text="CONFIRM" size="lg" />
       </Flex>
       <NavBar />
     </>

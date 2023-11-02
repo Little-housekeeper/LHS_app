@@ -7,7 +7,7 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import versa_map from "../assets/images/versa_map.png";
+import rideshare_map from "../assets/images/rideshare_map.png";
 import swap_icon from "../assets/images/swap_icon.png";
 import VersaButton from "../components/VersaButton";
 import { ArrowForwardIcon, InfoIcon, ArrowBackIcon } from "@chakra-ui/icons";
@@ -39,12 +39,13 @@ const RideSharePage = () => {
 
         {/* MAP */}
         <Flex flexDir={"column"}>
-          <Image src={versa_map}></Image>
+          <Image src={rideshare_map}></Image>
           <Flex
             marginY={10}
             alignItems={"center"}
             justifyContent={"center"}
             gap={2}
+            px={9}
           >
             <Flex flexDir={"column"} w={"90%"}>
               <Text as="b">From</Text>
