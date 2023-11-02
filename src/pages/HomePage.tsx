@@ -23,7 +23,7 @@ export default function HomePage() {
           color={"#42C9EB"}
           textAlign={"left"}
         >
-          VERSA
+          STELR
         </Text>
         <Text fontFamily={"Gabarito"} fontWeight={400} fontSize={"16px"}>
           a reliable rideshare service getting you to and from LAX

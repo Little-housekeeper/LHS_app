@@ -24,7 +24,7 @@ export default function LoginPage() {
         color={"#42C9EB"}
         textAlign={"center"}
       >
-        VERSA
+        STELR
       </Text>
 
       {/* image */}
