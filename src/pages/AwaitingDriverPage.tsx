@@ -1,6 +1,5 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
 import rideshare_map from "../assets/images/rideshare_map.png";
-import VersaButton from "../components/VersaButton";
 import NavBar from "../components/NavBar";
 import chatButton from "../assets/images/chatButton.png";
 import driver_pic from "../assets/images/driver_pic.png";

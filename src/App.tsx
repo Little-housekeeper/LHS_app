@@ -8,6 +8,8 @@ import ChooseTimePage from "./pages/ChooseTimePage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import ActivityDetailsPage from "./pages/ActivityDetailsPage";
 import AwaitingDriverPage from "./pages/AwaitingDriverPage";
+import ScheduleRide from "./pages/ScheduleRide";
+import DriverHomePage from "./pages/DriverHomePage";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/confirmation" element={<ConfirmationPage />} />
         <Route path="/activitydetails" element={<ActivityDetailsPage />} />
         <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
+        <Route path="/scheduleride" element={<ScheduleRide />} />
+        <Route path="/driverhomepage" element={<DriverHomePage />} />
       </Routes>
     </>
   );
