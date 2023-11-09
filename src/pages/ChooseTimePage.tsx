@@ -1,10 +1,12 @@
 import { Flex, Button, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
 import AvailableTimes from "../components/AvailableTimes";
 import VersaButton from "../components/VersaButton";
 
 export default function ChooseTimePage() {
+  const navigate = useNavigate();
   // this current date will actually be coming from the choose date page
   const currentDate = new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -79,7 +81,7 @@ export default function ChooseTimePage() {
         {allAvailableTimes}
       </Flex>
       <Flex align={"center"} justify={"center"} mt={"3em"}>
-        <VersaButton text="CONFIRM" size="lg" />
+        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/confirmation")}/>
       </Flex>
       <NavBar />
     </Flex>

@@ -1,9 +1,12 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 import RideShareGraphic from "../assets/images/hompage/RideshareGraphic.png";
 import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <Flex
       flexDir={"column"}
@@ -39,6 +42,7 @@ export default function HomePage() {
         borderRadius={"50px"}
         h={"20em"}
         w={"20em"}
+        onClick={() => navigate("/scheduleride")}
       >
         <Text
           color={"white"}

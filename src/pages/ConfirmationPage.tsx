@@ -1,10 +1,12 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
 import ConfirmRideGraphic from "../assets/images/ConfirmRide.png";
 import VersaButton from "../components/VersaButton";
 
 export default function ConfirmationPage() {
+  const navigate = useNavigate();
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>
@@ -32,7 +34,7 @@ export default function ConfirmationPage() {
         <Image src={ConfirmRideGraphic} objectFit={"contain"} />
       </Flex>
       <Flex flexDir={"column"} align={"center"} gap={"2em"} mt={"5em"}>
-        <VersaButton text="CONFIRM" size="lg" />
+        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/home")}/>
         <Text
           fontFamily={"Gabarito"}
           fontSize={"15px"}

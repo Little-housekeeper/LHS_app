@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 import rideshare_map from "../assets/images/rideshare_map.png";
 import swap_icon from "../assets/images/swap_icon.png";
 import VersaButton from "../components/VersaButton";
@@ -14,6 +15,8 @@ import { ArrowForwardIcon, InfoIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
 
 const RideSharePage = () => {
+  const navigate = useNavigate();
+
   // Implement your component logic here
   return (
     <>
@@ -67,7 +70,7 @@ const RideSharePage = () => {
             </Button>
           </Flex>
         </Flex>
-        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} />
+        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} onClickHandler={() => navigate("/choosecar")}/>
       </Flex>
       <NavBar />
     </>

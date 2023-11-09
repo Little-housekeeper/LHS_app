@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Flex, Text, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 // import versa_map from "../assets/images/versa_map.png";
 import VersaButton from "../components/VersaButton";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -22,6 +23,8 @@ interface Car {
 }
 
 const ChooseCarPage = () => {
+  const navigate = useNavigate();
+
   const [currentChosenCar, setCurrentChosenCar] = useState<Car | null>(null);
 
   const handleCarOptionClick = (car: Car) => {
@@ -86,7 +89,7 @@ const ChooseCarPage = () => {
             {carOptions}
           </Flex>
         </Flex>
-        <VersaButton text="CONFIRM" size="lg" />
+        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/fees")}/>
       </Flex>
       <NavBar />
     </>

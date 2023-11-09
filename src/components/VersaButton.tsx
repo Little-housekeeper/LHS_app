@@ -5,9 +5,10 @@ interface Props {
   icon?: React.ReactNode;
   size?: string;
   color?: string;
+  onClickHandler?: () => void;
 }
 
-const VersaButton = ({ text, icon, size, color = "#25283D" }: Props) => {
+const VersaButton = ({ text, icon, size, color = "#25283D", onClickHandler }: Props) => {
   return (
     <>
       <Button
@@ -16,6 +17,7 @@ const VersaButton = ({ text, icon, size, color = "#25283D" }: Props) => {
         gap={2}
         size={size}
         borderRadius={"45px"}
+        onClick={onClickHandler}
       >
         {text && <Text>{text}</Text>}
         {icon && icon}

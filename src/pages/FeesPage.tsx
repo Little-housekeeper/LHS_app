@@ -1,10 +1,13 @@
 import { Flex, UnorderedList, ListItem, Checkbox } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router";
 import TitleText from "../components/TitleText";
 import VersaButton from "../components/VersaButton";
 import NavBar from "../components/NavBar";
 
 export default function FeesPage() {
+  const navigate = useNavigate();
+
   return (
     <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
       {/* HEADING */}
@@ -39,7 +42,7 @@ export default function FeesPage() {
 
       <Flex flexDir={"column"} gap={"2em"}>
         <Checkbox>I Acknowledge</Checkbox>
-        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} />
+        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} onClickHandler={() => navigate("/choosetime")}/>
       </Flex>
       <NavBar />
     </Flex>
