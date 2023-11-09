@@ -48,7 +48,7 @@ export default function ChooseTimePage() {
       {/* header */}
       <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
         <Flex align="center" justifyContent="space-between" w="full" p={6}>
-          <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"}>
+          <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"} onClick={() => {navigate("/choosecar")}}>
             <ArrowBackIcon color={"white"} />
           </Button>
           {/* Adjust the size as needed */}
