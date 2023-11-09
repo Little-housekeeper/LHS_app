@@ -1,4 +1,5 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 // import rideshare_map from "../assets/images/rideshare_map.png";
 import NavBar from "../components/NavBar";
 // import chatButton from "../assets/images/chatButton.png";
@@ -13,6 +14,8 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 const events = [{ title: "Meeting", start: new Date() }];
 
 const ScheduleRide = () => {
+  const navigate = useNavigate();
+
   // Implement your component logic here
   return (
     <Flex
@@ -32,7 +35,7 @@ const ScheduleRide = () => {
           dateClick={(e) => console.log(e)}
         />
       </Flex>
-      <VersaButton text="CONFIRM" />
+      <VersaButton text="CONFIRM" onClickHandler={() => navigate("/rideshare")}/>
       <NavBar />
     </Flex>
   );
