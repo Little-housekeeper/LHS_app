@@ -1,4 +1,5 @@
 import { Flex, Button, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
@@ -6,7 +7,14 @@ import AvailableTimes from "../components/AvailableTimes";
 import VersaButton from "../components/VersaButton";
 
 export default function ChooseTimePage() {
+  const [currentChosenTime, setCurrentChosenTime] = useState(-1);
+
+  const handleChosenTimeClick = (time: number) => {
+    setCurrentChosenTime(time);
+  };
+
   const navigate = useNavigate();
+
   // this current date will actually be coming from the choose date page
   const currentDate = new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -15,18 +23,20 @@ export default function ChooseTimePage() {
   });
 
   const allAvailableTimes = [
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: true },
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
-    { time: "9:00 AM - 10:30 AM", isChosen: true, isPeak: false },
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
+    { id: 0, time: "9:00 AM - 10:30 AM", isPeak: false },
+    { id: 1, time: "9:00 AM - 10:30 AM", isPeak: true },
+    { id: 2, time: "9:00 AM - 10:30 AM", isPeak: false },
+    { id: 3, time: "9:00 AM - 10:30 AM", isPeak: false },
+    { id: 4, time: "9:00 AM - 10:30 AM", isPeak: false },
   ].map((timeItem) => {
-    // console.log(timeItem.time)
+    const isChosen = currentChosenTime === timeItem.id;
     return (
       <AvailableTimes
+        id={timeItem.id}
         time={timeItem.time}
-        isChosen={timeItem.isChosen}
+        isChosen={isChosen}
         isPeak={timeItem.isPeak}
+        onClickHandler={() => handleChosenTimeClick(timeItem.id)}
       />
     );
   });
@@ -81,7 +91,11 @@ export default function ChooseTimePage() {
         {allAvailableTimes}
       </Flex>
       <Flex align={"center"} justify={"center"} mt={"3em"}>
-        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/confirmation")}/>
+        <VersaButton
+          text="CONFIRM"
+          size="lg"
+          onClickHandler={() => navigate("/confirmation")}
+        />
       </Flex>
       <NavBar />
     </Flex>
