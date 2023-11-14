@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { Flex, Text, Image } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
 import ConfirmRideGraphic from "../assets/images/ConfirmRide.png";
 import VersaButton from "../components/VersaButton";
+import DataContext from "../context/DataContext";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
+  const { data } = useContext(DataContext);
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>
@@ -34,7 +37,11 @@ export default function ConfirmationPage() {
         <Image src={ConfirmRideGraphic} objectFit={"contain"} />
       </Flex>
       <Flex flexDir={"column"} align={"center"} gap={"2em"} mt={"5em"}>
-        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/home")}/>
+        <VersaButton
+          text="CONFIRM"
+          size="lg"
+          onClickHandler={() => navigate("/home")}
+        />
         <Text
           fontFamily={"Gabarito"}
           fontSize={"15px"}
@@ -44,6 +51,15 @@ export default function ConfirmationPage() {
         >
           VIEW SCHEDULED ACTIVITY
         </Text>
+      </Flex>
+
+      {/* DELETE LATER, ONLY FOR TEST */}
+      <Flex flexDir={"column"}>
+        <Text>{data?.scheduledDate.toString()}</Text>
+        <Text>{data?.rideFrom}</Text>
+        <Text>{data?.rideTo}</Text>
+        <Text>{data?.chosenCar.price}</Text>
+        <Text>{data?.chosenTime}</Text>
       </Flex>
       <NavBar />
     </>

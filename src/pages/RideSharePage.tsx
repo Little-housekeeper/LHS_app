@@ -1,3 +1,4 @@
+import { useContext, useRef } from "react";
 import {
   Flex,
   Image,
@@ -13,9 +14,22 @@ import swap_icon from "../assets/images/swap_icon.png";
 import VersaButton from "../components/VersaButton";
 import { ArrowForwardIcon, InfoIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
+import DataContext from "../context/DataContext";
 
 const RideSharePage = () => {
   const navigate = useNavigate();
+  const { data, setData } = useContext(DataContext);
+  const toInputRef = useRef<HTMLInputElement>(null);
+  const fromInputRef = useRef<HTMLInputElement>(null);
+  console.log(data);
+
+  const handleSwap = () => {
+    setData({
+      ...data,
+      rideFrom: data.rideTo,
+      rideTo: data.rideFrom,
+    });
+  };
 
   // Implement your component logic here
   return (
@@ -58,19 +72,42 @@ const RideSharePage = () => {
                 </InputRightElement>
                 <Input
                   bg={"#C5D1DD"}
-                  defaultValue={"LAX International Airport"}
-                  isReadOnly={true}
+                  value={data.rideFrom}
+                  placeholder="42 Wallaby Way, Irvine CA"
+                  ref={fromInputRef}
+                  onChange={() => {
+                    if (fromInputRef.current) {
+                      setData({
+                        ...data,
+                        rideFrom: fromInputRef.current.value,
+                      });
+                    }
+                  }}
                 />
               </InputGroup>
               <Text as="b">To</Text>
-              <Input placeholder="42 Wallaby Way, Irvine CA" />
+              <Input
+                placeholder="42 Wallaby Way, Irvine CA"
+                ref={toInputRef}
+                onChange={() => {
+                  if (toInputRef.current) {
+                    setData({ ...data, rideTo: toInputRef.current.value });
+                  }
+                }}
+                value={data.rideTo}
+              />
             </Flex>
-            <Button bg={"none"} p={0}>
+            <Button bg={"none"} p={0} onClick={handleSwap}>
               <Image w={"35px"} src={swap_icon} />
             </Button>
           </Flex>
         </Flex>
-        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} onClickHandler={() => navigate("/choosecar")}/>
+        <VersaButton
+          text="Next"
+          size="lg"
+          icon={<ArrowForwardIcon />}
+          onClickHandler={() => navigate("/choosecar")}
+        />
       </Flex>
       <NavBar />
     </>

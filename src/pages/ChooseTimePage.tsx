@@ -1,9 +1,11 @@
+import { useState, useContext, useEffect } from "react";
 import { Flex, Button, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
 import AvailableTimes from "../components/AvailableTimes";
 import VersaButton from "../components/VersaButton";
+import DataContext from "../context/DataContext";
 
 export default function ChooseTimePage() {
   const navigate = useNavigate();
@@ -13,6 +15,16 @@ export default function ChooseTimePage() {
     month: "long",
     day: "numeric",
   });
+
+  const { data, setData } = useContext(DataContext);
+
+  const [chosenAvailableTime, setChosenAvailableTime] = useState("");
+
+  useEffect(() => {
+    setData((prevData: any) => ({ ...prevData, time: chosenAvailableTime }));
+  }, [chosenAvailableTime]);
+
+  console.log(data);
 
   const allAvailableTimes = [
     { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
@@ -27,6 +39,7 @@ export default function ChooseTimePage() {
         time={timeItem.time}
         isChosen={timeItem.isChosen}
         isPeak={timeItem.isPeak}
+        onClick={() => setChosenAvailableTime(timeItem.time)}
       />
     );
   });
@@ -81,7 +94,11 @@ export default function ChooseTimePage() {
         {allAvailableTimes}
       </Flex>
       <Flex align={"center"} justify={"center"} mt={"3em"}>
-        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/confirmation")}/>
+        <VersaButton
+          text="CONFIRM"
+          size="lg"
+          onClickHandler={() => navigate("/confirmation")}
+        />
       </Flex>
       <NavBar />
     </Flex>

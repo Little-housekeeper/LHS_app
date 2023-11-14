@@ -28,7 +28,7 @@ const ActivityDetailsPage = () => {
             <Image w={"40px"} h={"40px"} src={chatButton} />
           </Flex>
 
-          <Flex justifyContent={"space-around"} w={"40px"} h={"40px"} w="full">
+          <Flex justifyContent={"space-around"} h={"40px"} w="full">
             <Image src={location_marker} />
             <Text fontWeight={"600"}>
               Pick-Up Location:

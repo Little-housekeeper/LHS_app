@@ -1,22 +1,39 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
+import { useState, useContext, useEffect } from "react";
+import { Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-// import rideshare_map from "../assets/images/rideshare_map.png";
-import NavBar from "../components/NavBar";
-// import chatButton from "../assets/images/chatButton.png";
-// import driver_pic from "../assets/images/driver_pic.png";
-// import location_marker from "../assets/images/location_marker.png";
-// import car_icon from "../assets/images/car_icon.png";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import VersaButton from "../components/VersaButton";
-import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
-
-const events = [{ title: "Meeting", start: new Date() }];
+import DataContext from "../context/DataContext";
 
 const ScheduleRide = () => {
   const navigate = useNavigate();
 
-  // Implement your component logic here
+  const { setData } = useContext(DataContext);
+
+  const [selectedDate, setSelectedDate] = useState<any>(null); // Update the type here
+
+  useEffect(() => {
+    if (selectedDate) {
+      setData((prevData: any) => ({
+        ...prevData,
+        scheduledDate: selectedDate.date,
+      }));
+    }
+  }, [selectedDate, setData]);
+
+  const handleDateClick = (e: { dayEl: HTMLElement }) => {
+    // Reset the previous selected date's background color
+    if (selectedDate) {
+      selectedDate.dayEl.style.backgroundColor = "";
+    }
+
+    // Set the new selected date and change its background color
+    setSelectedDate(e);
+    e.dayEl.style.backgroundColor = "#41C9EB";
+  };
+
   return (
     <Flex
       justifyContent={"center"}
@@ -26,17 +43,18 @@ const ScheduleRide = () => {
     >
       <Flex w={"full"} mt={"15vh"}>
         <FullCalendar
-          plugins={[dayGridPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           weekends={false}
-          events={events}
           eventColor="blue"
-          plugins={[dayGridPlugin, interactionPlugin]}
-          dateClick={(e) => console.log(e)}
+          dateClick={handleDateClick}
         />
       </Flex>
-      <VersaButton text="CONFIRM" onClickHandler={() => navigate("/rideshare")}/>
-      <NavBar />
+      <VersaButton
+        text="CONFIRM"
+        onClickHandler={() => navigate("/rideshare")}
+      />
+      {/* Other components */}
     </Flex>
   );
 };

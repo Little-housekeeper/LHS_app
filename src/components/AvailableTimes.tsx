@@ -4,12 +4,19 @@ interface Props {
   time?: string;
   isChosen?: boolean;
   isPeak?: boolean;
+  onClick?: () => void;
 }
 
-export default function AvailableTimes({ time, isChosen, isPeak }: Props) {
+export default function AvailableTimes({
+  time,
+  isChosen,
+  isPeak,
+  onClick,
+}: Props) {
   return (
     <>
       <Flex
+        onClick={onClick}
         borderRadius={"15px"}
         border={"0.5px solid"}
         w={"80%"}
