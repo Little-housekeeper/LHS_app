@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Flex,
   Image,
@@ -7,6 +9,7 @@ import {
   Link,
   Button,
 } from "@chakra-ui/react";
+import { UserAuth } from "../context/AuthContext.tsx";
 import TemplateImage from "../assets/images/TemplateImage.png";
 import FBIcon from "../assets/images/FBIcon.png";
 import GoogleIcon from "../assets/images/GoogleIcon.png";
@@ -14,6 +17,23 @@ import PhoneIcon from "../assets/images/PhoneIcon.png";
 import VersaButton from "../components/VersaButton.tsx";
 
 export default function LoginPage() {
+  const { user, googleSignIn, phoneSignIn } = UserAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/home");
+    }
+  }, [user]);
+
+  const handleGoogleSignIn = () => {
+    googleSignIn();
+  }
+
+  const handlePhoneSignIn = () => {
+    phoneSignIn();
+  }
+
   return (
     <Flex direction="column" justifyContent="center" h={"100vh"} w={"100vw"}>
       {/* title */}
@@ -98,10 +118,10 @@ export default function LoginPage() {
           Don't have an account? <Link color={"#00A1CA"}>Sign up</Link>
         </Text>
         <Flex justifyContent={"center"} gap={"1em"} w={"90%"}>
-          <Button bg={"none"} _hover={{ bg: "none" }}>
+          <Button bg={"none"} _hover={{ bg: "none" }} onClick={handleGoogleSignIn}>
             <Image src={GoogleIcon} w={"2em"} h={"2em"} />
           </Button>
-          <Button bg={"none"} _hover={{ bg: "none" }}>
+          <Button bg={"none"} _hover={{ bg: "none" }} onClick={handlePhoneSignIn}>
             <Image src={PhoneIcon} w={"2em"} h={"2em"} />
           </Button>
           <Button bg={"none"} _hover={{ bg: "none" }}>

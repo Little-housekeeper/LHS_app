@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import RideSharePage from "./pages/RideSharePage";
@@ -10,10 +11,11 @@ import ActivityDetailsPage from "./pages/ActivityDetailsPage";
 import AwaitingDriverPage from "./pages/AwaitingDriverPage";
 import ScheduleRide from "./pages/ScheduleRide";
 import DriverHomePage from "./pages/DriverHomePage";
+import AccountPage from "./pages/AccountPage";
 
 function App() {
   return (
-    <>
+    <AuthContextProvider>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
@@ -26,8 +28,9 @@ function App() {
         <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
         <Route path="/scheduleride" element={<ScheduleRide />} />
         <Route path="/driverhomepage" element={<DriverHomePage />} />
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
-    </>
+    </AuthContextProvider>
   );
 }
 
