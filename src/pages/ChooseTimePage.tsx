@@ -1,3 +1,4 @@
+import { useState, useContext, useEffect } from "react";
 import { Flex, Button, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -5,6 +6,7 @@ import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
 import AvailableTimes from "../components/AvailableTimes";
 import VersaButton from "../components/VersaButton";
+import DataContext from "../context/DataContext";
 
 export default function ChooseTimePage() {
   const [currentChosenTime, setCurrentChosenTime] = useState(-1);
@@ -22,6 +24,16 @@ export default function ChooseTimePage() {
     day: "numeric",
   });
 
+  const { data, setData } = useContext(DataContext);
+
+  const [chosenAvailableTime, setChosenAvailableTime] = useState("");
+
+  useEffect(() => {
+    setData((prevData: any) => ({ ...prevData, time: chosenAvailableTime }));
+  }, [chosenAvailableTime]);
+
+  console.log(data);
+
   const allAvailableTimes = [
     { id: 0, time: "9:00 AM - 10:30 AM", isPeak: false },
     { id: 1, time: "9:00 AM - 10:30 AM", isPeak: true },
@@ -36,7 +48,7 @@ export default function ChooseTimePage() {
         time={timeItem.time}
         isChosen={isChosen}
         isPeak={timeItem.isPeak}
-        onClickHandler={() => handleChosenTimeClick(timeItem.id)}
+        onClick={() => setChosenAvailableTime(timeItem.time)}
       />
     );
   });

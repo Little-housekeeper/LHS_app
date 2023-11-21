@@ -65,7 +65,6 @@ const DriverHomePage = () => {
     <Flex flexDir={"column"} gap={12}>
       <Flex w={"full"}>
         <FullCalendar
-          plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
           weekends={false}
           events={events}

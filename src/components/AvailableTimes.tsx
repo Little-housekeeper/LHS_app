@@ -5,14 +5,19 @@ interface Props {
   time?: string;
   isChosen?: boolean;
   isPeak?: boolean;
-  onClickHandler?: () => void;
+  onClick?: () => void;
 }
 
-export default function AvailableTimes({ id, time, isChosen, isPeak, onClickHandler }: Props) {
+export default function AvailableTimes({
+  time,
+  isChosen,
+  isPeak,
+  onClick,
+}: Props) {
   return (
     <>
       <Flex
-        key={id}
+        onClick={onClick}
         borderRadius={"15px"}
         border={"0.5px solid"}
         w={"80%"}
@@ -21,7 +26,6 @@ export default function AvailableTimes({ id, time, isChosen, isPeak, onClickHand
         borderColor={isPeak ? "#FFA439" : "#1A1A1A"}
         borderWidth={isPeak ? "3px" : "0.5px"}
         backgroundColor={isChosen ? "#41C9EB" : "#FFFFFF"}
-        onClick={onClickHandler}
       >
         <Text fontWeight={600}>{time}</Text>
       </Flex>

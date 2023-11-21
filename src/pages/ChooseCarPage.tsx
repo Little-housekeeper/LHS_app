@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 // import versa_map from "../assets/images/versa_map.png";
@@ -6,14 +6,15 @@ import VersaButton from "../components/VersaButton";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
 import CarOption from "../components/CarOption";
+import DataContext from "../context/DataContext";
 
 //FAKE DATA FOR CARS
 const fakeData = [
   { id: 1, carType: "4 Seater", price: 80 },
-  { id: 2, carType: "6 Seater", price: 90 },
-  { id: 3, carType: "6 Seater", price: 90 },
-  { id: 4, carType: "6 Seater", price: 90 },
-  { id: 5, carType: "6 Seater", price: 90 },
+  { id: 2, carType: "6 Seater", price: 100 },
+  { id: 3, carType: "6 Seater", price: 910 },
+  { id: 4, carType: "6 Seater", price: 120 },
+  { id: 5, carType: "6 Seater", price: 20 },
 ];
 
 interface Car {
@@ -25,7 +26,15 @@ interface Car {
 const ChooseCarPage = () => {
   const navigate = useNavigate();
 
+  const { data, setData } = useContext(DataContext);
   const [currentChosenCar, setCurrentChosenCar] = useState<Car | null>(null);
+  console.log(data);
+
+  useEffect(() => {
+    if (currentChosenCar) {
+      setData({ ...data, chosenCar: currentChosenCar });
+    }
+  }, [currentChosenCar]);
 
   const handleCarOptionClick = (car: Car) => {
     setCurrentChosenCar(car);
@@ -89,7 +98,11 @@ const ChooseCarPage = () => {
             {carOptions}
           </Flex>
         </Flex>
-        <VersaButton text="CONFIRM" size="lg" onClickHandler={() => navigate("/fees")}/>
+        <VersaButton
+          text="CONFIRM"
+          size="lg"
+          onClickHandler={() => navigate("/fees")}
+        />
       </Flex>
       <NavBar />
     </>
