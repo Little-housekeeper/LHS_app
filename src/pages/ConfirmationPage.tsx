@@ -10,6 +10,7 @@ import DataContext from "../context/DataContext";
 export default function ConfirmationPage() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
+
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>

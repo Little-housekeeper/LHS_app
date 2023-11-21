@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import AvailableTimes from "../components/AvailableTimes";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
+import requestRide from "../utils/utils";
 
 export default function ChooseTimePage() {
   const navigate = useNavigate();
@@ -43,6 +44,16 @@ export default function ChooseTimePage() {
       />
     );
   });
+
+  const handleConfirmRide = async () => {
+    try {
+      // Call the requestRide function with the necessary data
+      const response = await requestRide(data);
+      console.log("Ride requested successfully:", response);
+    } catch (error) {
+      console.error("Error requesting ride:", error);
+    }
+  };
 
   console.log(allAvailableTimes);
 
@@ -97,7 +108,10 @@ export default function ChooseTimePage() {
         <VersaButton
           text="CONFIRM"
           size="lg"
-          onClickHandler={() => navigate("/confirmation")}
+          onClickHandler={() => {
+            handleConfirmRide();
+            navigate("/confirmation");
+          }}
         />
       </Flex>
       <NavBar />
