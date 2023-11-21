@@ -12,6 +12,8 @@ import AwaitingDriverPage from "./pages/AwaitingDriverPage";
 import ScheduleRide from "./pages/ScheduleRide";
 import DriverHomePage from "./pages/DriverHomePage";
 import AccountPage from "./pages/AccountPage";
+import SignUpPage from "./pages/SignUpPage";
+import SignUpConfirmationPage from "./pages/SignUpConfirmationPage";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/scheduleride" element={<ScheduleRide />} />
         <Route path="/driverhomepage" element={<DriverHomePage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/signconfirmation" element={<SignUpConfirmationPage />} />
       </Routes>
     </AuthContextProvider>
   );
