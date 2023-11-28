@@ -34,6 +34,22 @@ export const AuthContextProvider = ({
       });
   };
 
+  const onCaptchaVerify = () => {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+        'callback': (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          // onSignInSubmit();
+        },
+        'expired-callback': () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          // ...
+        }
+      }, auth);
+    }
+  }
+
   const phoneSignIn = async(phoneNumber) => {
     try{
 
