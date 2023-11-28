@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { Flex, Button, Text } from "@chakra-ui/react";
-import { useState } from "react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";

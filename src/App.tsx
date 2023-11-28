@@ -28,32 +28,34 @@ function App() {
 
   return (
     <>
-      <DataContext.Provider
-        value={{
-          data: data,
-          setData: setData,
-        }}
-      >
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/rideshare" element={<RideSharePage />} />
-          <Route path="/choosecar" element={<ChooseCarPage />} />
-          <Route path="/fees" element={<FeesPage />} />
-          <Route path="/choosetime" element={<ChooseTimePage />} />
-          <Route path="/confirmation" element={<ConfirmationPage />} />
-          <Route path="/activitydetails" element={<ActivityDetailsPage />} />
-          <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
-          <Route path="/scheduleride" element={<ScheduleRide />} />
-          <Route path="/driverhomepage" element={<DriverHomePage />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route
-            path="/signconfirmation"
-            element={<SignUpConfirmationPage />}
-          />
-        </Routes>
-      </DataContext.Provider>
+      <AuthContextProvider>
+        <DataContext.Provider
+          value={{
+            data: data,
+            setData: setData,
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/rideshare" element={<RideSharePage />} />
+            <Route path="/choosecar" element={<ChooseCarPage />} />
+            <Route path="/fees" element={<FeesPage />} />
+            <Route path="/choosetime" element={<ChooseTimePage />} />
+            <Route path="/confirmation" element={<ConfirmationPage />} />
+            <Route path="/activitydetails" element={<ActivityDetailsPage />} />
+            <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
+            <Route path="/scheduleride" element={<ScheduleRide />} />
+            <Route path="/driverhomepage" element={<DriverHomePage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route
+              path="/signconfirmation"
+              element={<SignUpConfirmationPage />}
+            />
+          </Routes>
+        </DataContext.Provider>
+      </AuthContextProvider>
     </>
   );
 }

@@ -16,12 +16,14 @@ import GoogleIcon from "../assets/images/GoogleIcon.png";
 import PhoneIcon from "../assets/images/PhoneIcon.png";
 import VersaButton from "../components/VersaButton.tsx";
 
-<ChakraLink as={ReactRouterLink} to="/home">
+{
+  /* <ChakraLink as={ReactRouterLink} to="/home">
   Home
-</ChakraLink>;
+</ChakraLink>; */
+}
 
 export default function LoginPage() {
-  const { user, googleSignIn, phoneSignIn } = UserAuth();
+  const { user, facebookSignIn, googleSignIn, phoneSignIn } = UserAuth();
   const navigate = useNavigate();
 
   console.log("user", user);
@@ -38,6 +40,10 @@ export default function LoginPage() {
 
   const handlePhoneSignIn = () => {
     phoneSignIn();
+  };
+
+  const handleFacebookSignIn = () => {
+    facebookSignIn();
   };
 
   return (
@@ -121,7 +127,10 @@ export default function LoginPage() {
           fontWeight={500}
           textAlign={"right"}
         >
-          Don't have an account? <ChakraLink as={ReactRouterLink} to={"/signup"} color={"#00A1CA"}>Sign up</ChakraLink>
+          Don't have an account?{" "}
+          <ChakraLink as={ReactRouterLink} to={"/signup"} color={"#00A1CA"}>
+            Sign up
+          </ChakraLink>
         </Text>
         <Flex justifyContent={"center"} gap={"1em"} w={"90%"}>
           <Button
@@ -138,7 +147,11 @@ export default function LoginPage() {
           >
             <Image src={PhoneIcon} w={"2em"} h={"2em"} />
           </Button>
-          <Button bg={"none"} _hover={{ bg: "none" }}>
+          <Button
+            bg={"none"}
+            _hover={{ bg: "none" }}
+            onClick={handleFacebookSignIn}
+          >
             <Image src={FBIcon} w={"2em"} h={"2em"} />
           </Button>
         </Flex>

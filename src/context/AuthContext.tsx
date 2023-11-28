@@ -6,7 +6,9 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   User,
-  RecaptchaVerifier 
+  RecaptchaVerifier,
+  FacebookAuthProvider,
+  signInWithPhoneNumber,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -18,7 +20,7 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
@@ -32,15 +34,28 @@ export const AuthContextProvider = ({
       });
   };
 
-  const phoneSignIn = () => {
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-      'size': 'invisible',
-      'callback': (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        console.log(response)
-      }
-    });
-  }
+  const phoneSignIn = async(phoneNumber) => {
+    try{
+
+      const appVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {});
+      const confirmation = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+      console.log(confirmation)
+    } catch (err){
+      console.log(err)
+    }
+  };
+
+  const facebookSignIn = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        setUser(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const logOut = () => {
     signOut(auth);
@@ -61,7 +76,9 @@ export const AuthContextProvider = ({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ phoneSignIn, googleSignIn, logOut, user }}>
+    <AuthContext.Provider
+      value={{ phoneSignIn, googleSignIn, logOut, facebookSignIn, user }}
+    >
       {children}
     </AuthContext.Provider>
   );
