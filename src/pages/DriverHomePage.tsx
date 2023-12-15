@@ -1,4 +1,4 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 // import rideshare_map from "../assets/images/rideshare_map.png";
 import NavBar from "../components/NavBar";
 // import chatButton from "../assets/images/chatButton.png";

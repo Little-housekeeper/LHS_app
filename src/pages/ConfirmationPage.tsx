@@ -6,10 +6,22 @@ import NavBar from "../components/NavBar";
 import ConfirmRideGraphic from "../assets/images/ConfirmRide.png";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
+import axios from "axios";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
+
+  const sendDataToServer = async () => {
+    try {
+      axios.post("http://localhost:3001/request", data);
+      console.log(data);
+      console.log("Data sent successfully!");
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+  };
+
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>
@@ -40,7 +52,10 @@ export default function ConfirmationPage() {
         <VersaButton
           text="CONFIRM"
           size="lg"
-          onClickHandler={() => navigate("/home")}
+          onClickHandler={() => {
+            sendDataToServer();
+            navigate("/home");
+          }}
         />
         <Text
           fontFamily={"Gabarito"}
