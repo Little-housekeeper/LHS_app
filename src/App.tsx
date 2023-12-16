@@ -14,6 +14,7 @@ import DriverHomePage from "./pages/DriverHomePage";
 import DataContext from "./context/DataContext";
 import CodeConfirmation from "./pages/CodeConfirmation";
 import SignUpByPhone from "./pages/SignUpByPhone";
+import AccountPage from "./pages/AccountPage";
 function App() {
   const [data, setData] = useState<any>({
     scheduledDate: "",
@@ -45,6 +46,7 @@ function App() {
           <Route path="/driverhomepage" element={<DriverHomePage />} />
           <Route path="/signupbyphone" element={<SignUpByPhone />} />
           <Route path="/codeconfirmation" element={<CodeConfirmation />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
       </DataContext.Provider>
     </>

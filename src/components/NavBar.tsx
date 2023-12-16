@@ -55,7 +55,7 @@ const NavBar = () => {
           width={"100%"}
           borderRadius={100}
           bg={"none"}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/account")}
         >
           <Image src={profile_icon} alt="profile icon" />
         </Button>
