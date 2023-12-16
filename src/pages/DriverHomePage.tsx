@@ -1,4 +1,4 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
+import { Flex, Text, Image, Box } from "@chakra-ui/react";
 // import rideshare_map from "../assets/images/rideshare_map.png";
 import NavBar from "../components/NavBar";
 // import chatButton from "../assets/images/chatButton.png";
@@ -62,30 +62,33 @@ const DriverHomePage = () => {
   ));
 
   return (
-    <Flex flexDir={"column"} gap={12}>
-      <Flex w={"full"}>
-        <FullCalendar
-          initialView="dayGridMonth"
-          weekends={false}
-          events={events}
-          eventColor="blue"
-          plugins={[dayGridPlugin, interactionPlugin]}
-          dateClick={(e) => console.log(e)}
-        />
-      </Flex>
-      <Flex marginLeft={8} flexDir={"column"}>
-        <Text color={"#42C9EB"} as="b" fontSize={"xl"}>
-          {new Date().toLocaleDateString("en-US", {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-          })}
-        </Text>
-        <Text mb={7}>Upcoming Activity</Text>
-        {upcomingActivityCards}
-      </Flex>
+    <Box>
+      <Box m={3}>
+        <Box w={"full"} mb={10}>
+          <FullCalendar
+            headerToolbar={{start:'prev',center:"title",end:'next'}}
+            initialView="dayGridMonth"
+            weekends={true}
+            events={events}
+            eventColor="blue"
+            plugins={[dayGridPlugin, interactionPlugin]}
+            dateClick={(e) => console.log(e)}
+          />
+        </Box>
+        <Box marginLeft={8} flexDir={"column"}>
+          <Text color={"#42C9EB"} as="b" fontSize={"xl"}>
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            })}
+          </Text>
+          <Text mb={7}>Upcoming Activity</Text>
+          {upcomingActivityCards}
+        </Box>
+      </Box>
       <NavBar />
-    </Flex>
+    </Box>
   );
 };
 
