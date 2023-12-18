@@ -19,16 +19,44 @@ const NavBar = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <Button bg={"none"} onClick={() => navigate("/home")}>
+        <Button
+          colorScheme="twitter"
+          height={"70%"}
+          width={"100%"}
+          borderRadius={100}
+          bg={"none"}
+          onClick={() => navigate("/home")}
+        >
           <Image src={home_icon} alt="home icon" />
         </Button>
-        <Button bg={"none"} onClick={() => navigate("/home")}>
+        <Button
+          colorScheme="twitter"
+          height={"70%"}
+          width={"100%"}
+          borderRadius={100}
+          bg={"none"}
+          onClick={() => navigate("/home")}
+        >
           <Image src={activities_icon} alt="activities icon" />
         </Button>
-        <Button bg={"none"} onClick={() => navigate("/home")}>
+        <Button
+          colorScheme="twitter"
+          height={"70%"}
+          width={"100%"}
+          borderRadius={100}
+          bg={"none"}
+          onClick={() => navigate("/home")}
+        >
           <Image src={chat_icon} alt="chat icon" />
         </Button>
-        <Button bg={"none"} onClick={() => navigate("/account")}>
+        <Button
+          colorScheme="twitter"
+          height={"70%"}
+          width={"100%"}
+          borderRadius={100}
+          bg={"none"}
+          onClick={() => navigate("/account")}
+        >
           <Image src={profile_icon} alt="profile icon" />
         </Button>
       </Flex>

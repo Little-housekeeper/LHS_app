@@ -12,12 +12,12 @@ import ActivityDetailsPage from "./pages/ActivityDetailsPage";
 import AwaitingDriverPage from "./pages/AwaitingDriverPage";
 import ScheduleRide from "./pages/ScheduleRide";
 import DriverHomePage from "./pages/DriverHomePage";
-import AccountPage from "./pages/AccountPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpConfirmationPage from "./pages/SignUpConfirmationPage";
 import DataContext from "./context/DataContext";
 import CodeConfirmation from "./pages/CodeConfirmation";
 import SignUpByPhone from "./pages/SignUpByPhone";
+import AccountPage from "./pages/AccountPage";
 function App() {
   const [data, setData] = useState<any>({
     scheduledDate: "",

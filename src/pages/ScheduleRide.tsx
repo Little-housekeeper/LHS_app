@@ -1,11 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
+import NavBar from "../components/NavBar";
 
 const ScheduleRide = () => {
   const navigate = useNavigate();
@@ -36,25 +37,27 @@ const ScheduleRide = () => {
 
   return (
     <Flex
-      justifyContent={"center"}
-      alignItems={"center"}
       flexDir={"column"}
+      justifyContent="center"
+      alignItems="center"
       gap={12}
     >
-      <Flex w={"full"} mt={"15vh"}>
+      <Box w={"full"} mt={10}>
         <FullCalendar
+          height={"auto"}
+          headerToolbar={{ start: "prev", center: "title", end: "next" }}
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           weekends={false}
           eventColor="blue"
           dateClick={handleDateClick}
         />
-      </Flex>
+      </Box>
       <VersaButton
         text="CONFIRM"
         onClickHandler={() => navigate("/rideshare")}
       />
-      {/* Other components */}
+      <NavBar />
     </Flex>
   );
 };

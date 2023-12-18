@@ -13,7 +13,7 @@ const ActivityDetailsPage = () => {
       {/* HEADING */}
       <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
         {/* MAP */}
-        <Flex flexDir={"column"}>
+        <Flex flexDir={"column"} mt={10}>
           <Image src={rideshare_map}></Image>
         </Flex>
         <Flex flexDir={"column"} p={10} w="full" gap={7} my={10}>

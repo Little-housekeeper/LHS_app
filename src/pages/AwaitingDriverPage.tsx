@@ -13,7 +13,7 @@ const AwaitingDriverPage = () => {
       {/* HEADING */}
       <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
         {/* MAP */}
-        <Flex flexDir={"column"}>
+        <Flex flexDir={"column"} mt={10}>
           <Image src={rideshare_map}></Image>
         </Flex>
         <Flex
