@@ -143,7 +143,7 @@ export default function LoginPage() {
           <Button
             bg={"none"}
             _hover={{ bg: "none" }}
-            onClick={handlePhoneSignIn}
+            onClick={() => navigate("/signupbyphone")}
           >
             <Image src={PhoneIcon} w={"2em"} h={"2em"} />
           </Button>

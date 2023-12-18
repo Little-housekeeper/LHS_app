@@ -36,29 +36,35 @@ export const AuthContextProvider = ({
 
   const onCaptchaVerify = () => {
     if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-        'size': 'invisible',
-        'callback': (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // onSignInSubmit();
-        },
-        'expired-callback': () => {
-          // Response expired. Ask user to solve reCAPTCHA again.
-          // ...
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            phoneSignIn();
+          },
+          "expired-callback": () => {
+            // Response expired. Ask user to solve reCAPTCHA again.
+            // ...
+          },
         }
-      }, auth);
+      );
     }
-  }
+  };
 
-  const phoneSignIn = async(phoneNumber) => {
-    try{
+  const phoneSignIn = () => {
+    onCaptchaVerify();
+    const appVerifier = window.recaptchaVerifier;
 
-      const appVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {});
-      const confirmation = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      console.log(confirmation)
-    } catch (err){
-      console.log(err)
-    }
+    signInWithPhoneNumber(auth, "+16282419352", appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const facebookSignIn = () => {

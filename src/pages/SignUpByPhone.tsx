@@ -2,7 +2,39 @@ import { Flex, Text, Button, Stack, Input } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/react";
 import VersaButton from "../components/VersaButton";
+import { useNavigate } from "react-router";
+import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
+import { auth } from "../firebase";
+
 export default function SignUpByPhone() {
+  const navigate = useNavigate();
+
+  const onCaptchaVerify = () => {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          phoneSignIn();
+          navigate("/codeconfirmation");
+        },
+      });
+    }
+  };
+
+  const phoneSignIn = () => {
+    onCaptchaVerify();
+    const appVerifier = window.recaptchaVerifier;
+
+    signInWithPhoneNumber(auth, "+15551234567", appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Stack
       marginY="20"
@@ -44,7 +76,16 @@ export default function SignUpByPhone() {
         bgColor="#EDF2F7"
         mb="2rem"
       />
-      <VersaButton text="Sign Up" size="lg" />
+      <VersaButton
+        text="Sign Up"
+        size="lg"
+        onClickHandler={() => {
+          phoneSignIn();
+        
+        }}
+        id={"sign-in-button"}
+      />
+      <div id={"sign-in-button"}></div>
     </Stack>
   );
 }
