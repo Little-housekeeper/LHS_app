@@ -28,7 +28,7 @@ const NavBar = () => {
         <Button bg={"none"} onClick={() => navigate("/home")}>
           <Image src={chat_icon} alt="chat icon" />
         </Button>
-        <Button bg={"none"} onClick={() => navigate("/home")}>
+        <Button bg={"none"} onClick={() => navigate("/account")}>
           <Image src={profile_icon} alt="profile icon" />
         </Button>
       </Flex>

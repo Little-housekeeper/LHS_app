@@ -8,7 +8,14 @@ import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
 
 export default function ChooseTimePage() {
+  const [currentChosenTime, setCurrentChosenTime] = useState(-1);
+
+  const handleChosenTimeClick = (time: number) => {
+    setCurrentChosenTime(time);
+  };
+
   const navigate = useNavigate();
+
   // this current date will actually be coming from the choose date page
   const currentDate = new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -27,17 +34,18 @@ export default function ChooseTimePage() {
   console.log(data);
 
   const allAvailableTimes = [
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: true },
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
-    { time: "9:00 AM - 10:30 AM", isChosen: true, isPeak: false },
-    { time: "9:00 AM - 10:30 AM", isChosen: false, isPeak: false },
+    { id: 0, time: "9:00 AM - 10:30 AM", isPeak: false },
+    { id: 1, time: "9:00 AM - 10:30 AM", isPeak: true },
+    { id: 2, time: "9:00 AM - 10:30 AM", isPeak: false },
+    { id: 3, time: "9:00 AM - 10:30 AM", isPeak: false },
+    { id: 4, time: "9:00 AM - 10:30 AM", isPeak: false },
   ].map((timeItem) => {
-    // console.log(timeItem.time)
+    const isChosen = currentChosenTime === timeItem.id;
     return (
       <AvailableTimes
+        id={timeItem.id}
         time={timeItem.time}
-        isChosen={timeItem.isChosen}
+        isChosen={isChosen}
         isPeak={timeItem.isPeak}
         onClick={() => setChosenAvailableTime(timeItem.time)}
       />
@@ -51,7 +59,7 @@ export default function ChooseTimePage() {
       {/* header */}
       <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
         <Flex align="center" justifyContent="space-between" w="full" p={6}>
-          <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"}>
+          <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"} onClick={() => {navigate("/choosecar")}}>
             <ArrowBackIcon color={"white"} />
           </Button>
           {/* Adjust the size as needed */}

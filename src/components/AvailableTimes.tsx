@@ -1,6 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 
 interface Props {
+  id?: number;
   time?: string;
   isChosen?: boolean;
   isPeak?: boolean;
