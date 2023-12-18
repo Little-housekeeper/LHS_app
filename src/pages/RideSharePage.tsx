@@ -31,6 +31,10 @@ const RideSharePage = () => {
     });
   };
 
+  const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY;
+  const EMBED_DIRECTION_API_URL = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodeURIComponent(
+    data.rideFrom
+  )}&destination=${encodeURIComponent(data.rideTo)}`;
   // Implement your component logic here
   return (
     <>
@@ -56,7 +60,18 @@ const RideSharePage = () => {
 
         {/* MAP */}
         <Flex flexDir={"column"}>
-          <Image src={rideshare_map}></Image>
+          {data.rideFrom && data.rideTo ? (
+            <iframe
+              width="400"
+              height="330"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+              src={EMBED_DIRECTION_API_URL}
+            ></iframe>
+          ) : (
+            <Image src={rideshare_map} />
+          )}
           <Flex
             marginY={10}
             alignItems={"center"}
