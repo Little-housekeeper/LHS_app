@@ -1,7 +1,18 @@
 import { Text, Stack, Avatar, Input } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
 export default function AccountPage() {
+  const auth = UserAuth();
+  const logOut = auth ? auth.logOut : null;
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut();
+    navigate("/");
+  };
   return (
     <Stack marginY="20" marginX="5" alignItems="center" justifyContent="center">
       <Text textAlign="center" fontSize="3xl" fontWeight="bold">
@@ -34,6 +45,9 @@ export default function AccountPage() {
         mb="2rem"
       />
       <VersaButton text="Setting" size="lg" />
+      <Flex>
+        <Button onClick={handleLogout}>Log out</Button>
+      </Flex>
       <NavBar />
     </Stack>
   );
