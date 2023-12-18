@@ -34,39 +34,6 @@ export const AuthContextProvider = ({
       });
   };
 
-  const onCaptchaVerify = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            phoneSignIn();
-          },
-          "expired-callback": () => {
-            // Response expired. Ask user to solve reCAPTCHA again.
-            // ...
-          },
-        }
-      );
-    }
-  };
-
-  const phoneSignIn = () => {
-    onCaptchaVerify();
-    const appVerifier = window.recaptchaVerifier;
-
-    signInWithPhoneNumber(auth, "+16282419352", appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const facebookSignIn = () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
@@ -78,6 +45,10 @@ export const AuthContextProvider = ({
         console.log(error);
       });
   };
+
+  const setUserHandler = (userInfo) => {
+    setUser(userInfo);
+  }
 
   const logOut = () => {
     signOut(auth);
@@ -99,7 +70,7 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ phoneSignIn, googleSignIn, logOut, facebookSignIn, user }}
+      value={{ googleSignIn, logOut, facebookSignIn, setUserHandler, user}}
     >
       {children}
     </AuthContext.Provider>

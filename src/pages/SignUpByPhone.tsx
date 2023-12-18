@@ -1,38 +1,51 @@
-import { Flex, Text, Button, Stack, Input } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Button,
+  Stack,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+} from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/react";
 import VersaButton from "../components/VersaButton";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { auth } from "../firebase";
+import { UserAuth } from "../context/AuthContext";
 
 export default function SignUpByPhone() {
+  const { setUserHandler} = UserAuth();
   const navigate = useNavigate();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [otp, setOtp] = useState("");
+  const [user, setUser] = useState(null);
 
-  const onCaptchaVerify = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          phoneSignIn();
-          navigate("/codeconfirmation");
-        },
-      });
+  const sendOTP = async() => {
+    try {
+      const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {});
+      const confirmation = await signInWithPhoneNumber(
+        auth,
+        "+1 " + phoneNumber,
+        recaptcha
+      );
+      console.log("confo", confirmation)
+      setUser(confirmation);
+      console.log("user", user);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const phoneSignIn = () => {
-    onCaptchaVerify();
-    const appVerifier = window.recaptchaVerifier;
-
-    signInWithPhoneNumber(auth, "+15551234567", appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const verifyOtp = async () => {
+    try {
+      const data = await user.confirm(otp);
+      console.log(data)
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -70,22 +83,33 @@ export default function SignUpByPhone() {
         Please enter the phone number you would like to associate with this
         account
       </Text>
-      <Input
-        placeholder="Ex: 123-456-7892"
-        padding="1.5rem"
-        bgColor="#EDF2F7"
-        mb="2rem"
-      />
+      <InputGroup>
+        <InputLeftAddon children="+1" />
+        <Input
+          type="tel"
+          placeholder="Ex: (123) 456-7892"
+          bgColor="#EDF2F7"
+          mb="2rem"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+      </InputGroup>
       <VersaButton
         text="Sign Up"
         size="lg"
         onClickHandler={() => {
-          phoneSignIn();
-        
+          sendOTP();
         }}
         id={"sign-in-button"}
       />
-      <div id={"sign-in-button"}></div>
+      <div id="recaptcha"></div>
+      <Flex>
+        <Input
+          placeholder="enter code"
+          onChange={(e) => setOtp(e.target.value)}
+        />
+        <Button onClick={verifyOtp}>Verify OTP</Button>
+      </Flex>
     </Stack>
   );
 }

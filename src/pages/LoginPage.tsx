@@ -23,7 +23,7 @@ import VersaButton from "../components/VersaButton.tsx";
 }
 
 export default function LoginPage() {
-  const { user, facebookSignIn, googleSignIn, phoneSignIn } = UserAuth();
+  const { user, facebookSignIn, googleSignIn } = UserAuth();
   const navigate = useNavigate();
 
   console.log("user", user);
@@ -36,10 +36,6 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = () => {
     googleSignIn();
-  };
-
-  const handlePhoneSignIn = () => {
-    phoneSignIn();
   };
 
   const handleFacebookSignIn = () => {
