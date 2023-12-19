@@ -15,15 +15,17 @@ import { useState } from "react";
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { auth } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
+import ConfirmationCode from "../assets/images/ConfirmationCode.svg";
 
 export default function SignUpByPhone() {
-  const { setUserHandler} = UserAuth();
+  const { setUserHandler } = UserAuth();
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [user, setUser] = useState(null);
+  const [isCodeSent, setIsCodeSent] = useState(false);
 
-  const sendOTP = async() => {
+  const sendOTP = async () => {
     try {
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {});
       const confirmation = await signInWithPhoneNumber(
@@ -31,24 +33,26 @@ export default function SignUpByPhone() {
         "+1 " + phoneNumber,
         recaptcha
       );
-      console.log("confo", confirmation)
+      console.log("confo", confirmation);
       setUser(confirmation);
-      console.log("user", user);
+      setIsCodeSent(true);
     } catch (err) {
       console.log(err);
     }
   };
 
   const verifyOtp = async () => {
+    console.log('went in')
     try {
       const data = await user.confirm(otp);
-      console.log(data)
+      navigate("/home");
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  return (
+  const phoneSignInPage = (
     <Stack
       marginY="20"
       marginX="5"
@@ -61,7 +65,7 @@ export default function SignUpByPhone() {
           <ArrowBackIcon color={"white"} fontSize={20} />
         </Button>
         <Text textAlign="center" fontSize="3xl" fontWeight="bold">
-          Sign Up by Phone
+          Sign In by Phone
         </Text>
         <Button
           borderRadius={"full"}
@@ -103,13 +107,69 @@ export default function SignUpByPhone() {
         id={"sign-in-button"}
       />
       <div id="recaptcha"></div>
+    </Stack>
+  );
+
+  const codeConfirmationPage = (
+    <Stack
+      marginY="20"
+      marginX="5"
+      alignItems="center"
+      justifyContent="center"
+      spacing="4"
+    >
+      <Flex width="100%" justifyContent={"space-between"}>
+        <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"}>
+          <ArrowBackIcon color={"white"} fontSize={20} />
+        </Button>
+        <Text textAlign="center" fontSize="3xl" fontWeight="bold" mb="2rem">
+          Confirmation
+        </Text>
+        <Button
+          borderRadius={"full"}
+          width={"10px"}
+          p={0}
+          bg={"#25283D"}
+          visibility={"hidden"}
+        >
+          <ArrowBackIcon color={"white"} />
+        </Button>
+      </Flex>
+
+      <img src={ConfirmationCode} alt="ConfirmationImage" />
+
+      <Text fontSize="18" fontWeight="semibold" mb="2rem" textAlign="center">
+        Please enter the unique 5-digit code sent to the phone number associated
+        with your account.
+      </Text>
+
       <Flex>
         <Input
           placeholder="enter code"
           onChange={(e) => setOtp(e.target.value)}
         />
-        <Button onClick={verifyOtp}>Verify OTP</Button>
       </Flex>
+      
+      <Flex m="2rem" gap={2}>
+        <Text fontWeight="semibold" fontSize="16">
+          Didn't receive a code?{" "}
+        </Text>
+        <Text
+          fontWeight="semibold"
+          fontSize="16"
+          color="#42C9EB"
+          display="inline-block"
+        >
+          Resend
+        </Text>
+      </Flex>
+      <VersaButton text="Confirm" size="lg" onClickHandler={verifyOtp}/>
+
     </Stack>
   );
+
+  console.log(otp)
+  console.log("user", user);
+
+  return <>{isCodeSent ? codeConfirmationPage : phoneSignInPage}</>;
 }
