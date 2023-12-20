@@ -7,16 +7,17 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
 import CarOption from "../components/CarOption";
 import DataContext from "../context/DataContext";
+import { getDriver } from "../utils/ApiUtils";
 import axios from "axios";
 
 //FAKE DATA FOR CARS
-const fakeData = [
-  { id: 1, seats_num: 4, price: 80 },
-  { id: 2, seats_num: 6, price: 100 },
-  { id: 3, seats_num: 6, price: 910 },
-  { id: 4, seats_num: 4, price: 120 },
-  { id: 5, seats_num: 6, price: 20 },
-];
+// const fakeData = [
+//   { id: 1, seats_num: 4, price: 80 },
+//   { id: 2, seats_num: 6, price: 100 },
+//   { id: 3, seats_num: 6, price: 910 },
+//   { id: 4, seats_num: 4, price: 120 },
+//   { id: 5, seats_num: 6, price: 20 },
+// ];
 
 interface Car {
   id: number;
@@ -32,16 +33,10 @@ const ChooseCarPage = () => {
   const [driverData, setDriverData] = useState<any>([]);
   console.log(data);
 
-  const retrieveDriverData = async () => {
-    axios.get("http://localhost:3002/driver").then((res) => {
-      setDriverData(res.data);
-    });
-  };
-
-  console.log(driverData);
-
   useEffect(() => {
-    retrieveDriverData();
+    getDriver().then((res: any) => {
+      setDriverData(res);
+    });
   }, []);
 
   useEffect(() => {

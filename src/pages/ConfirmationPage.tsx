@@ -6,11 +6,19 @@ import NavBar from "../components/NavBar";
 import ConfirmRideGraphic from "../assets/images/ConfirmRide.png";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
-import axios from "axios";
+import { UserAuth } from "../context/AuthContext";
+import { postRequest } from "../utils/ApiUtils";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
+  const { user } = UserAuth();
+  console.log(user);
+
+  const handleConfirmClick = async () => {
+    await postRequest(user, data);
+    navigate("/home");
+  };
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>
@@ -41,7 +49,7 @@ export default function ConfirmationPage() {
         <VersaButton
           text="CONFIRM"
           size="lg"
-          onClickHandler={() => navigate("/home")}
+          onClickHandler={() => handleConfirmClick()}
         />
         <Text
           fontFamily={"Gabarito"}

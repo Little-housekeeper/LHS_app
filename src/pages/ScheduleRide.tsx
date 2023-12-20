@@ -19,7 +19,7 @@ const ScheduleRide = () => {
     if (selectedDate) {
       setData((prevData: any) => ({
         ...prevData,
-        scheduled_date: selectedDate.date,
+        scheduled_date: selectedDate.date.toISOString().split('T')[0],
       }));
     }
   }, [selectedDate, setData]);

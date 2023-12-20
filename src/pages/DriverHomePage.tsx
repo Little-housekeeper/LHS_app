@@ -1,4 +1,5 @@
 import { Flex, Text, Image, Box } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 // import rideshare_map from "../assets/images/rideshare_map.png";
 import NavBar from "../components/NavBar";
 // import chatButton from "../assets/images/chatButton.png";
@@ -8,6 +9,7 @@ import NavBar from "../components/NavBar";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import { getCustomersFromDriverPhone } from "../utils/ApiUtils";
 
 const events = [{ title: "Meeting", start: new Date() }];
 const fakeRiderData = [
@@ -35,9 +37,15 @@ const fakeRiderData = [
 ];
 
 const DriverHomePage = () => {
-  // Implement your component logic here
+  // DRIVER HARDCODED AS DRIVER 3 (Phone#: 555-0003)
+  const [customers, setCustomers] = useState<any>([]);
 
-  const upcomingActivityCards = fakeRiderData.map((rider) => (
+  useEffect(() => {
+    getCustomersFromDriverPhone("555-0003").then((res: any) => {
+      setCustomers(res);
+    });
+  }, []);
+  const upcomingActivityCards = customers.map((rider: any) => (
     <Flex
       flexDir={"column"}
       bg={"#25283D"}
@@ -50,12 +58,11 @@ const DriverHomePage = () => {
       <Text>{rider.name}</Text>
       <Flex justifyContent={"space-between"}>
         <Flex gap={1} fontWeight={600}>
-          <Text>{rider.from} ➜</Text>
-          <Text>{rider.to}</Text>
+          <Text>{rider.ride_from} ➜</Text>
+          <Text>{rider.ride_to}</Text>
         </Flex>
         <Flex>
-          <Text>{rider.timeFrom} ➜</Text>
-          <Text>{rider.timeTo}</Text>
+          <Text>{rider.chosen_time}</Text>
         </Flex>
       </Flex>
     </Flex>
@@ -66,7 +73,7 @@ const DriverHomePage = () => {
       <Box m={3}>
         <Box w={"full"} mb={10}>
           <FullCalendar
-            headerToolbar={{start:'prev',center:"title",end:'next'}}
+            headerToolbar={{ start: "prev", center: "title", end: "next" }}
             initialView="dayGridMonth"
             weekends={true}
             events={events}
@@ -84,7 +91,9 @@ const DriverHomePage = () => {
             })}
           </Text>
           <Text mb={7}>Upcoming Activity</Text>
-          {upcomingActivityCards}
+          <Flex flexDir={"column"} maxH={"250px"} overflowY={"scroll"}>
+            {upcomingActivityCards}
+          </Flex>
         </Box>
       </Box>
       <NavBar />
