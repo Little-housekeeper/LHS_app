@@ -3,9 +3,19 @@ import { useNavigate } from "react-router";
 import RideShareGraphic from "../assets/images/hompage/RideshareGraphic.png";
 import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
+import { useEffect } from "react";
+import { postCustomer } from "../utils/ApiUtils.js";
+import { UserAuth } from "../context/AuthContext";
 
 export default function HomePage() {
+  // const { user } = UserAuth();
+
   const navigate = useNavigate();
+  // console.log("home", user);
+
+  // useEffect(() => {
+  //   postCustomer(user);
+  // }, []);
 
   return (
     <Flex
