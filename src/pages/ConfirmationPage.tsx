@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import ConfirmRideGraphic from "../assets/images/ConfirmRide.png";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
+import axios from "axios";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
@@ -55,11 +56,11 @@ export default function ConfirmationPage() {
 
       {/* DELETE LATER, ONLY FOR TEST */}
       <Flex flexDir={"column"}>
-        <Text>{data?.scheduledDate.toString()}</Text>
-        <Text>{data?.rideFrom}</Text>
-        <Text>{data?.rideTo}</Text>
-        <Text>{data?.chosenCar.price}</Text>
-        <Text>{data?.chosenTime}</Text>
+        <Text>{data?.schedule_date}</Text>
+        <Text>{data?.ride_from}</Text>
+        <Text>{data?.ride_to}</Text>
+        <Text>{data?.driver_id}</Text>
+        <Text>{data?.chosen_time}</Text>
       </Flex>
       <NavBar />
     </>

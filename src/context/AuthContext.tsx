@@ -12,7 +12,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase";
 
-const AuthContext = createContext(null);
+interface AuthContextValue {
+  googleSignIn: () => void;
+  logOut: () => void;
+  facebookSignIn: () => void;
+  setUserHandler: (userInfo: any) => void;
+  user: User | null;
+}
+
+const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthContextProvider = ({
   children,
@@ -46,9 +54,9 @@ export const AuthContextProvider = ({
       });
   };
 
-  const setUserHandler = (userInfo) => {
+  const setUserHandler = (userInfo: any) => {
     setUser(userInfo);
-  }
+  };
 
   const logOut = () => {
     signOut(auth);
@@ -70,7 +78,7 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ googleSignIn, logOut, facebookSignIn, setUserHandler, user}}
+      value={{ googleSignIn, logOut, facebookSignIn, setUserHandler, user }}
     >
       {children}
     </AuthContext.Provider>
