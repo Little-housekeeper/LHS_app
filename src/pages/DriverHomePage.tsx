@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 // import driver_pic from "../assets/images/driver_pic.png";
 // import location_marker from "../assets/images/location_marker.png";
 // import car_icon from "../assets/images/car_icon.png";
+import { useNavigate } from "react-router";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
@@ -39,6 +40,7 @@ const fakeRiderData = [
 const DriverHomePage = () => {
   // DRIVER HARDCODED AS DRIVER 3 (Phone#: 555-0003)
   const [customers, setCustomers] = useState<any>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCustomersFromDriverPhone("555-0003").then((res: any) => {
@@ -54,6 +56,7 @@ const DriverHomePage = () => {
       maxW={"340px"}
       p={5}
       mb={5}
+      onClick={() => navigate(`/activitydetails/${rider.id}`)}
     >
       <Text>{rider.name}</Text>
       <Flex justifyContent={"space-between"}>

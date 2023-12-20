@@ -48,6 +48,14 @@ const getCustomersFromDriverPhone = async (phone_number) => {
   return data;
 };
 
+const startRide = async (id) => {
+  await axios.put(`http://localhost:3001/request/start/${id}`);
+};
+
+const cancelRide = async (id) => {
+  await axios.put(`http://localhost:3001/request/cancel/${id}`);
+};
+
 const waitForCustomerData = async () => {
   const customerData = await axios.get("http://localhost:3001/customers/data");
   await postRequest(customerData, { request: "example" });
@@ -62,4 +70,6 @@ export {
   postRequest,
   getCustomersFromDriverPhone,
   getRequestByid,
+  startRide,
+  cancelRide,
 };
