@@ -34,33 +34,6 @@ export const AuthContextProvider = ({
       });
   };
 
-  const onCaptchaVerify = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-        'size': 'invisible',
-        'callback': (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // onSignInSubmit();
-        },
-        'expired-callback': () => {
-          // Response expired. Ask user to solve reCAPTCHA again.
-          // ...
-        }
-      }, auth);
-    }
-  }
-
-  const phoneSignIn = async(phoneNumber) => {
-    try{
-
-      const appVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {});
-      const confirmation = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      console.log(confirmation)
-    } catch (err){
-      console.log(err)
-    }
-  };
-
   const facebookSignIn = () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
@@ -72,6 +45,10 @@ export const AuthContextProvider = ({
         console.log(error);
       });
   };
+
+  const setUserHandler = (userInfo) => {
+    setUser(userInfo);
+  }
 
   const logOut = () => {
     signOut(auth);
@@ -93,7 +70,7 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ phoneSignIn, googleSignIn, logOut, facebookSignIn, user }}
+      value={{ googleSignIn, logOut, facebookSignIn, setUserHandler, user}}
     >
       {children}
     </AuthContext.Provider>

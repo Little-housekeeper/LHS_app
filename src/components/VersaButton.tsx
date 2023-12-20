@@ -1,6 +1,7 @@
 import { Button, Text } from "@chakra-ui/react";
 
 interface Props {
+  id?: string;
   text?: string;
   icon?: React.ReactNode;
   size?: string;
@@ -8,7 +9,7 @@ interface Props {
   onClickHandler?: () => void;
 }
 
-const VersaButton = ({ text, icon, size, color = "#25283D", onClickHandler }: Props) => {
+const VersaButton = ({id, text, icon, size, color = "#25283D", onClickHandler }: Props) => {
   return (
     <>
       <Button

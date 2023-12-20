@@ -2,6 +2,10 @@ import { Input, Flex, Text, Stack, Button } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ConfirmationCode from "../assets/images/ConfirmationCode.svg";
 import VersaButton from "../components/VersaButton";
+import { auth } from "../firebase";
+import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
+import { useEffect } from "react";
+
 export default function CodeConfirmation(): JSX.Element {
   return (
     <Stack
@@ -113,12 +117,19 @@ export default function CodeConfirmation(): JSX.Element {
           boxShadow="0 7px 5px -3px rgba(0, 0, 0, 0.3)"
         />
       </Flex>
-      <Text m="2rem" fontWeight="semibold" fontSize="16">
-        Didn't receive a code?{" "}
-        <Text color="#42C9EB" display="inline-block">
+      <Flex m="2rem" gap={2}>
+        <Text fontWeight="semibold" fontSize="16">
+          Didn't receive a code?{" "}
+        </Text>
+        <Text
+          fontWeight="semibold"
+          fontSize="16"
+          color="#42C9EB"
+          display="inline-block"
+        >
           Resend
         </Text>
-      </Text>
+      </Flex>
       <VersaButton text="Confirm" size="lg" />
     </Stack>
   );
