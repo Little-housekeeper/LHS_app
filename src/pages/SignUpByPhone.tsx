@@ -16,13 +16,14 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { auth } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
 import ConfirmationCode from "../assets/images/ConfirmationCode.svg";
+import { getCustomer, postCustomer } from "../utils/ApiUtils.js";
 
 export default function SignUpByPhone() {
-  const { setUserHandler } = UserAuth();
+  const { setUserHandler, user } = UserAuth();
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [user, setUser] = useState(null);
+  const [userConfirmation, setUserConfirmation] = useState(null);
   const [isCodeSent, setIsCodeSent] = useState(false);
 
   const sendOTP = async () => {
@@ -34,7 +35,7 @@ export default function SignUpByPhone() {
         recaptcha
       );
       console.log("confo", confirmation);
-      setUser(confirmation);
+      setUserConfirmation(confirmation);
       setIsCodeSent(true);
     } catch (err) {
       console.log(err);
@@ -42,9 +43,11 @@ export default function SignUpByPhone() {
   };
 
   const verifyOtp = async () => {
-    console.log('went in')
+    console.log("went in");
     try {
-      const data = await user.confirm(otp);
+      const data = await userConfirmation.confirm(otp);
+      setUserHandler(data.user);
+      postCustomer(user);
       navigate("/home");
       console.log(data);
     } catch (err) {
@@ -149,7 +152,7 @@ export default function SignUpByPhone() {
           onChange={(e) => setOtp(e.target.value)}
         />
       </Flex>
-      
+
       <Flex m="2rem" gap={2}>
         <Text fontWeight="semibold" fontSize="16">
           Didn't receive a code?{" "}
@@ -163,13 +166,17 @@ export default function SignUpByPhone() {
           Resend
         </Text>
       </Flex>
-      <VersaButton text="Confirm" size="lg" onClickHandler={verifyOtp}/>
-
+      <VersaButton text="Confirm" size="lg" onClickHandler={verifyOtp} />
     </Stack>
   );
 
-  console.log(otp)
-  console.log("user", user);
+  console.log(otp);
+  console.log("user", userConfirmation);
 
-  return <>{isCodeSent ? codeConfirmationPage : phoneSignInPage}</>;
+  return (
+    <>
+      {isCodeSent ? codeConfirmationPage : phoneSignInPage}
+      <Button onClick={() => getCustomer()}>CLick me</Button>
+    </>
+  );
 }
