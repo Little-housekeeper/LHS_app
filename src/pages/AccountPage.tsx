@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
+
 export default function AccountPage() {
-  const auth = UserAuth();
-  const logOut = auth ? auth.logOut : null;
+  const { logOut } = UserAuth();
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
