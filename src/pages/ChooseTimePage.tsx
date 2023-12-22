@@ -23,18 +23,18 @@ export default function ChooseTimePage() {
     day: "numeric",
   });
 
-  const { data, setData } = useContext(DataContext);
+  const { rideData, setRideData } = useContext(DataContext);
 
   const [chosenAvailableTime, setChosenAvailableTime] = useState("");
 
   useEffect(() => {
-    setData((prevData: any) => ({
+    setRideData((prevData: any) => ({
       ...prevData,
       chosen_time: chosenAvailableTime,
     }));
   }, [chosenAvailableTime]);
 
-  console.log(data);
+  console.log(rideData);
 
   const allAvailableTimes = [
     { id: 0, time: "9:00 AM - 10:30 AM", isPeak: false },

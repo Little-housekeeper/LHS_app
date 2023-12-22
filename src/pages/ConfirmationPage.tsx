@@ -11,12 +11,12 @@ import { postRequest } from "../utils/ApiUtils";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
-  const { data } = useContext(DataContext);
+  const { rideData } = useContext(DataContext);
   const { user } = UserAuth();
   console.log(user);
 
   const handleConfirmClick = async () => {
-    await postRequest(user, data);
+    await postRequest(user, rideData);
     navigate("/home");
   };
   return (
@@ -64,11 +64,11 @@ export default function ConfirmationPage() {
 
       {/* DELETE LATER, ONLY FOR TEST */}
       <Flex flexDir={"column"}>
-        <Text>{data?.schedule_date}</Text>
-        <Text>{data?.ride_from}</Text>
-        <Text>{data?.ride_to}</Text>
-        <Text>{data?.driver_id}</Text>
-        <Text>{data?.chosen_time}</Text>
+        <Text>{rideData?.schedule_date}</Text>
+        <Text>{rideData?.ride_from}</Text>
+        <Text>{rideData?.ride_to}</Text>
+        <Text>{rideData?.driver_id}</Text>
+        <Text>{rideData?.chosen_time}</Text>
       </Flex>
       <NavBar />
     </>

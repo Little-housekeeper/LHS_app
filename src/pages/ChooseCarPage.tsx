@@ -28,10 +28,10 @@ interface Car {
 const ChooseCarPage = () => {
   const navigate = useNavigate();
 
-  const { data, setData } = useContext(DataContext);
+  const { rideData, setRideData } = useContext(DataContext);
   const [currentChosenCar, setCurrentChosenCar] = useState<Car | null>(null);
   const [driverData, setDriverData] = useState<any>([]);
-  console.log(data);
+  console.log(rideData);
 
   useEffect(() => {
     getDriver().then((res: any) => {
@@ -41,7 +41,7 @@ const ChooseCarPage = () => {
 
   useEffect(() => {
     if (currentChosenCar) {
-      setData({ ...data, driver_id: currentChosenCar.id });
+      setRideData({ ...rideData, driver_id: currentChosenCar.id });
     }
   }, [currentChosenCar]);
 

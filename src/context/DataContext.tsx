@@ -1,13 +1,17 @@
 import { createContext } from "react";
 
 interface IDataContext {
-  data: any;
-  setData: React.Dispatch<React.SetStateAction<any>>;
+  rideData: any;
+  setRideData: React.Dispatch<React.SetStateAction<any>>;
+  customerData: any;
+  driverData: any;
 }
 
 const DataContext = createContext<IDataContext>({
-  data: {},
-  setData: () => {},
+  rideData: {},
+  setRideData: () => {},
+  customerData: [],
+  driverData: []
 });
 
 export default DataContext;

@@ -1,14 +1,11 @@
 import { useContext, createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
   signInWithPopup,
   User,
-  RecaptchaVerifier,
   FacebookAuthProvider,
-  signInWithPhoneNumber,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { postCustomer } from "../utils/ApiUtils.js";
