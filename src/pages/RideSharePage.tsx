@@ -26,22 +26,28 @@ const RideSharePage = () => {
   const handleSwap = () => {
     setData({
       ...data,
-      rideFrom: data.rideTo,
-      rideTo: data.rideFrom,
+      ride_from: data.ride_to,
+      ride_to: data.ride_from,
     });
   };
 
   const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY;
   const EMBED_DIRECTION_API_URL = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodeURIComponent(
-    data.rideFrom
-  )}&destination=${encodeURIComponent(data.rideTo)}`;
+    data.ride_from
+  )}&destination=${encodeURIComponent(data.ride_to)}`;
   // Implement your component logic here
   return (
     <>
       {/* HEADING */}
       <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
         <Flex align="center" justifyContent="space-between" w="full" p={6}>
-          <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"} onClick={() => navigate("/scheduleride")}>
+          <Button
+            borderRadius={"full"}
+            width={"10px"}
+            p={0}
+            bg={"#25283D"}
+            onClick={() => navigate("/scheduleride")}
+          >
             <ArrowBackIcon color={"white"} />
           </Button>
           {/* Adjust the size as needed */}
@@ -60,7 +66,7 @@ const RideSharePage = () => {
 
         {/* MAP */}
         <Flex flexDir={"column"}>
-          {data.rideFrom && data.rideTo ? (
+          {data.ride_from && data.ride_to ? (
             <iframe
               width="400"
               height="330"
@@ -87,14 +93,14 @@ const RideSharePage = () => {
                 </InputRightElement>
                 <Input
                   bg={"#C5D1DD"}
-                  value={data.rideFrom}
+                  value={data.ride_from}
                   placeholder="42 Wallaby Way, Irvine CA"
                   ref={fromInputRef}
                   onChange={() => {
                     if (fromInputRef.current) {
                       setData({
                         ...data,
-                        rideFrom: fromInputRef.current.value,
+                        ride_from: fromInputRef.current.value,
                       });
                     }
                   }}
@@ -106,10 +112,10 @@ const RideSharePage = () => {
                 ref={toInputRef}
                 onChange={() => {
                   if (toInputRef.current) {
-                    setData({ ...data, rideTo: toInputRef.current.value });
+                    setData({ ...data, ride_to: toInputRef.current.value });
                   }
                 }}
-                value={data.rideTo}
+                value={data.ride_to}
               />
             </Flex>
             <Button bg={"none"} p={0} onClick={handleSwap}>

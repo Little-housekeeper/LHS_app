@@ -20,11 +20,11 @@ import SignUpByPhone from "./pages/SignUpByPhone";
 import AccountPage from "./pages/AccountPage";
 function App() {
   const [data, setData] = useState<any>({
-    scheduledDate: "",
-    rideFrom: "LAX International Airport",
-    rideTo: "",
-    chosenCar: {},
-    chosenTime: "",
+    scheduled_date: "",
+    ride_from: "LAX International Airport",
+    ride_to: "",
+    driver_id: -1,
+    chosen_time: "",
   }); // Update the type here
 
   return (
@@ -44,7 +44,10 @@ function App() {
             <Route path="/fees" element={<FeesPage />} />
             <Route path="/choosetime" element={<ChooseTimePage />} />
             <Route path="/confirmation" element={<ConfirmationPage />} />
-            <Route path="/activitydetails" element={<ActivityDetailsPage />} />
+            <Route
+              path="/activitydetails/:id"
+              element={<ActivityDetailsPage />}
+            />
             <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
             <Route path="/scheduleride" element={<ScheduleRide />} />
             <Route path="/driverhomepage" element={<DriverHomePage />} />

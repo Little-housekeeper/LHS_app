@@ -6,10 +6,19 @@ import NavBar from "../components/NavBar";
 import ConfirmRideGraphic from "../assets/images/ConfirmRide.png";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
+import { UserAuth } from "../context/AuthContext";
+import { postRequest } from "../utils/ApiUtils";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
+  const { user } = UserAuth();
+  console.log(user);
+
+  const handleConfirmClick = async () => {
+    await postRequest(user, data);
+    navigate("/home");
+  };
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>
@@ -40,7 +49,7 @@ export default function ConfirmationPage() {
         <VersaButton
           text="CONFIRM"
           size="lg"
-          onClickHandler={() => navigate("/home")}
+          onClickHandler={() => handleConfirmClick()}
         />
         <Text
           fontFamily={"Gabarito"}
@@ -55,11 +64,11 @@ export default function ConfirmationPage() {
 
       {/* DELETE LATER, ONLY FOR TEST */}
       <Flex flexDir={"column"}>
-        <Text>{data?.scheduledDate.toString()}</Text>
-        <Text>{data?.rideFrom}</Text>
-        <Text>{data?.rideTo}</Text>
-        <Text>{data?.chosenCar.price}</Text>
-        <Text>{data?.chosenTime}</Text>
+        <Text>{data?.schedule_date}</Text>
+        <Text>{data?.ride_from}</Text>
+        <Text>{data?.ride_to}</Text>
+        <Text>{data?.driver_id}</Text>
+        <Text>{data?.chosen_time}</Text>
       </Flex>
       <NavBar />
     </>

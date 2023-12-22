@@ -13,7 +13,15 @@ import {
 import { auth } from "../firebase";
 import { postCustomer } from "../utils/ApiUtils.js";
 
-const AuthContext = createContext(null);
+interface AuthContextValue {
+  googleSignIn: () => void;
+  logOut: () => void;
+  facebookSignIn: () => void;
+  setUserHandler: (userInfo: any) => void;
+  user: User | null;
+}
+
+const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthContextProvider = ({
   children,
@@ -49,7 +57,7 @@ export const AuthContextProvider = ({
       });
   };
 
-  const setUserHandler = (userInfo) => {
+  const setUserHandler = (userInfo: any) => {
     setUser(userInfo);
   };
 

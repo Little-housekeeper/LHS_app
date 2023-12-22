@@ -7,19 +7,21 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
 import CarOption from "../components/CarOption";
 import DataContext from "../context/DataContext";
+import { getDriver } from "../utils/ApiUtils";
+import axios from "axios";
 
 //FAKE DATA FOR CARS
-const fakeData = [
-  { id: 1, carType: "4 Seater", price: 80 },
-  { id: 2, carType: "6 Seater", price: 100 },
-  { id: 3, carType: "6 Seater", price: 910 },
-  { id: 4, carType: "6 Seater", price: 120 },
-  { id: 5, carType: "6 Seater", price: 20 },
-];
+// const fakeData = [
+//   { id: 1, seats_num: 4, price: 80 },
+//   { id: 2, seats_num: 6, price: 100 },
+//   { id: 3, seats_num: 6, price: 910 },
+//   { id: 4, seats_num: 4, price: 120 },
+//   { id: 5, seats_num: 6, price: 20 },
+// ];
 
 interface Car {
   id: number;
-  carType: string;
+  seats_num: number;
   price: number;
 }
 
@@ -28,11 +30,18 @@ const ChooseCarPage = () => {
 
   const { data, setData } = useContext(DataContext);
   const [currentChosenCar, setCurrentChosenCar] = useState<Car | null>(null);
+  const [driverData, setDriverData] = useState<any>([]);
   console.log(data);
 
   useEffect(() => {
+    getDriver().then((res: any) => {
+      setDriverData(res);
+    });
+  }, []);
+
+  useEffect(() => {
     if (currentChosenCar) {
-      setData({ ...data, chosenCar: currentChosenCar });
+      setData({ ...data, driver_id: currentChosenCar.id });
     }
   }, [currentChosenCar]);
 
@@ -40,12 +49,12 @@ const ChooseCarPage = () => {
     setCurrentChosenCar(car);
   };
 
-  const carOptions = fakeData.map((car) => {
+  const carOptions = driverData.map((car: any) => {
     const isChosen = currentChosenCar && currentChosenCar.id === car.id;
     return (
       <CarOption
         key={car.id}
-        carType={car.carType}
+        seats_num={car.seats_num}
         price={car.price}
         isChosen={isChosen ? true : false}
         onClick={() => handleCarOptionClick(car)}
@@ -58,7 +67,15 @@ const ChooseCarPage = () => {
       {/* HEADING */}
       <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
         <Flex align="center" justifyContent="space-between" w="full" p={6}>
-          <Button borderRadius={"full"} width={"10px"} p={0} bg={"#25283D"} onClick={() => {navigate("/rideshare")}}>
+          <Button
+            borderRadius={"full"}
+            width={"10px"}
+            p={0}
+            bg={"#25283D"}
+            onClick={() => {
+              navigate("/rideshare");
+            }}
+          >
             <ArrowBackIcon color={"white"} />
           </Button>
           {/* Adjust the size as needed */}

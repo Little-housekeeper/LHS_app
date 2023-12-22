@@ -6,9 +6,10 @@ import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
 
 export default function AccountPage() {
-  const { logOut } = UserAuth();
-
+  const { user, logOut } = UserAuth();
   const navigate = useNavigate();
+
+  console.log(user);
 
   const handleLogout = () => {
     logOut();

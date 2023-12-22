@@ -2,13 +2,13 @@ import { Text, Flex, Image } from "@chakra-ui/react";
 import car_icon from "../assets/images/car_icon.png";
 
 interface Props {
-  carType?: string;
+  seats_num?: number;
   isChosen?: boolean;
   price?: number;
   onClick?: () => void;
 }
 
-const CarOption = ({ carType, price, isChosen, onClick }: Props) => {
+const CarOption = ({ seats_num, price, isChosen, onClick }: Props) => {
   return (
     <>
       <Flex
@@ -28,7 +28,7 @@ const CarOption = ({ carType, price, isChosen, onClick }: Props) => {
           fontWeight={"600"}
           fontSize={"xl"}
         >
-          <Text>{carType}</Text>
+          <Text>{seats_num} Seater</Text>
           <Text>${price}</Text>
         </Flex>
       </Flex>
