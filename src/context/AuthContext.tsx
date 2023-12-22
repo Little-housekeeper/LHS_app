@@ -4,6 +4,8 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
+  getAuth,
+  getIdTokenResult,
   User,
   FacebookAuthProvider,
 } from "firebase/auth";
@@ -16,6 +18,7 @@ interface AuthContextValue {
   facebookSignIn: () => void;
   setUserHandler: (userInfo: any) => void;
   user: User | null;
+  role: string | null; // Add role to the context
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -26,15 +29,21 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  // const navigate = useNavigate();
+  const [role, setRole] = useState<string | null>(null); // Role state
+
+  // Helper function to fetch role from custom claims
+  const fetchRole = async (currentUser: User) => {
+    const tokenResult = await getIdTokenResult(currentUser);
+    setRole(tokenResult.claims.role || null); // Set role from custom claims
+  };
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
         setUser(res.user);
+        fetchRole(res.user); // Fetch role after signing in
         postCustomer(res.user);
-        // navigate("/home");
       })
       .catch((error) => {
         console.error(error);
@@ -45,8 +54,8 @@ export const AuthContextProvider = ({
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
         setUser(result.user);
+        fetchRole(result.user); // Fetch role after signing in
         postCustomer(result.user);
       })
       .catch((error) => {
@@ -56,26 +65,32 @@ export const AuthContextProvider = ({
 
   const setUserHandler = (userInfo: any) => {
     setUser(userInfo);
+    if (userInfo) fetchRole(userInfo); // Fetch role when setting user
   };
 
   const logOut = () => {
-    signOut(auth);
-    setUser(null);
-    console.log("enters here");
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        setRole(null); // Reset role on sign out
+        console.log("User signed out");
+      })
+      .catch((error) => {
+        console.error("Error signing out: ", error);
+      });
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("currentuser", currentUser)
-      if (currentUser == null) {
-        console.log("it goes here hah")
-        setUser(null);
-      } else {
+      if (currentUser) {
         setUser(currentUser);
-        console.log("it goes here hsdfsah")
-
+        fetchRole(currentUser); // Fetch role on auth state change
+      } else {
+        setUser(null);
+        setRole(null); // Reset role if not signed in
       }
     });
+
     return () => {
       unsubscribe();
     };
@@ -89,6 +104,7 @@ export const AuthContextProvider = ({
         facebookSignIn,
         setUserHandler,
         user,
+        role, // Provide role in context
       }}
     >
       {children}

@@ -3,16 +3,21 @@ import { useNavigate } from "react-router";
 import RideShareGraphic from "../assets/images/hompage/RideshareGraphic.png";
 import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
-import { useContext } from "react";
+import { useEffect } from "react";
 import { postCustomer } from "../utils/ApiUtils.js";
 import { UserAuth } from "../context/AuthContext";
 import DataContext from "../context/DataContext";
 
-
 export default function HomePage() {
-  const { user } = UserAuth();
+  const { user, role } = UserAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (role === "driver") {
+      navigate("/driverhomepage");
+    }
+  }, []);
+  console.log(user);
 
   return (
     <Flex

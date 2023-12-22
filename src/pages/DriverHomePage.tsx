@@ -10,40 +10,43 @@ import { useNavigate } from "react-router";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import { UserAuth } from "../context/AuthContext";
 import { getCustomersFromDriverPhone } from "../utils/ApiUtils";
 
 const events = [{ title: "Meeting", start: new Date() }];
-const fakeRiderData = [
-  {
-    name: "Jade Luu",
-    from: "UTC",
-    to: "LAX",
-    timeFrom: "9:00AM",
-    timeTo: "10:30AM",
-  },
-  {
-    name: "Jade Luu",
-    from: "UTC",
-    to: "LAX",
-    timeFrom: "9:00AM",
-    timeTo: "10:30AM",
-  },
-  {
-    name: "Jade Luu",
-    from: "UTC",
-    to: "LAX",
-    timeFrom: "10:00AM",
-    timeTo: "11:30AM",
-  },
-];
+// const fakeRiderData = [
+//   {
+//     name: "Jade Luu",
+//     from: "UTC",
+//     to: "LAX",
+//     timeFrom: "9:00AM",
+//     timeTo: "10:30AM",
+//   },
+//   {
+//     name: "Jade Luu",
+//     from: "UTC",
+//     to: "LAX",
+//     timeFrom: "9:00AM",
+//     timeTo: "10:30AM",
+//   },
+//   {
+//     name: "Jade Luu",
+//     from: "UTC",
+//     to: "LAX",
+//     timeFrom: "10:00AM",
+//     timeTo: "11:30AM",
+//   },
+// ];
 
 const DriverHomePage = () => {
   // DRIVER HARDCODED AS DRIVER 3 (Phone#: 555-0003)
   const [customers, setCustomers] = useState<any>([]);
+  const { user } = UserAuth();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCustomersFromDriverPhone("555-0003").then((res: any) => {
+    getCustomersFromDriverPhone(user?.phoneNumber).then((res: any) => {
       setCustomers(res);
     });
   }, []);
