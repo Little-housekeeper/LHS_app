@@ -11,18 +11,18 @@ import NavBar from "../components/NavBar";
 const ScheduleRide = () => {
   const navigate = useNavigate();
 
-  const { setData } = useContext(DataContext);
+  const { setRideData } = useContext(DataContext);
 
   const [selectedDate, setSelectedDate] = useState<any>(null); // Update the type here
 
   useEffect(() => {
     if (selectedDate) {
-      setData((prevData: any) => ({
+      setRideData((prevData: any) => ({
         ...prevData,
         scheduled_date: selectedDate.date.toISOString().split('T')[0],
       }));
     }
-  }, [selectedDate, setData]);
+  }, [selectedDate, setRideData]);
 
   const handleDateClick = (e: { dayEl: HTMLElement }) => {
     // Reset the previous selected date's background color

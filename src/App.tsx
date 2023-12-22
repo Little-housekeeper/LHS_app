@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
+import { getCustomer, getDriver } from "./utils/ApiUtils.js";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import RideSharePage from "./pages/RideSharePage";
@@ -18,8 +19,9 @@ import DataContext from "./context/DataContext";
 import CodeConfirmation from "./pages/CodeConfirmation";
 import SignUpByPhone from "./pages/SignUpByPhone";
 import AccountPage from "./pages/AccountPage";
+
 function App() {
-  const [data, setData] = useState<any>({
+  const [rideData, setRideData] = useState<any>({
     scheduled_date: "",
     ride_from: "LAX International Airport",
     ride_to: "",
@@ -27,13 +29,27 @@ function App() {
     chosen_time: "",
   }); // Update the type here
 
+  const [customerData, setCustomerData] = useState<any>([]);
+  useEffect(() => {
+    getCustomer().then((res) => setCustomerData(res));
+  }, []);
+
+  const [driverData, setDriverData] = useState<any>([]);
+  useEffect(() => {
+    getDriver().then((res) => setDriverData(res));
+  }, []);
+
+  console.log('driver', driverData)
+
   return (
     <>
       <AuthContextProvider>
         <DataContext.Provider
           value={{
-            data: data,
-            setData: setData,
+            rideData: rideData,
+            setRideData: setRideData,
+            customerData: customerData,
+            driverData: driverData,
           }}
         >
           <Routes>

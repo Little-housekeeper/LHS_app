@@ -12,18 +12,26 @@ const getRequestByid = async (id) => {
 
 const getCustomer = async () => {
   const data = await axios.get("http://localhost:3001/customers");
-  console.log(data.data);
+  return data.data;
 };
 
 const postCustomer = async (customer) => {
-  console.log("cus", customer);
-
   const body = {
     phone_number: customer?.phoneNumber,
     email: customer?.email,
     name: customer?.displayName,
   };
-  await axios.post("http://localhost:3001/customers/send", body);
+
+  const customers = await axios.get("http://localhost:3001/customers");
+  const filteredCustomers = customers.data.filter(
+    (item) =>
+      item.phone_number == customer?.phoneNumber ||
+      item.email == customer?.email
+  );
+
+  if (filteredCustomers.length == 0) {
+    await axios.post("http://localhost:3001/customers/send", body);
+  }
 };
 
 const postRequest = async (customer, request) => {
@@ -73,5 +81,5 @@ export {
   getRequestByid,
   startRide,
   cancelRide,
-  waitForCustomerData
+  waitForCustomerData,
 };
