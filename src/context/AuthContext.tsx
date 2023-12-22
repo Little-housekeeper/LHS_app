@@ -11,6 +11,7 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { postCustomer } from "../utils/ApiUtils.js";
 
 interface AuthContextValue {
   googleSignIn: () => void;
@@ -35,6 +36,7 @@ export const AuthContextProvider = ({
     signInWithPopup(auth, provider)
       .then((res) => {
         setUser(res.user);
+        postCustomer(res.user);
         // navigate("/home");
       })
       .catch((error) => {
@@ -48,6 +50,7 @@ export const AuthContextProvider = ({
       .then((result) => {
         console.log(result);
         setUser(result.user);
+        postCustomer(result.user);
       })
       .catch((error) => {
         console.log(error);
@@ -61,14 +64,19 @@ export const AuthContextProvider = ({
   const logOut = () => {
     signOut(auth);
     setUser(null);
+    console.log("enters here");
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser == null || currentUser.email == null) {
+      console.log("currentuser", currentUser)
+      if (currentUser == null) {
+        console.log("it goes here hah")
         setUser(null);
       } else {
         setUser(currentUser);
+        console.log("it goes here hsdfsah")
+
       }
     });
     return () => {
@@ -78,7 +86,13 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ googleSignIn, logOut, facebookSignIn, setUserHandler, user }}
+      value={{
+        googleSignIn,
+        logOut,
+        facebookSignIn,
+        setUserHandler,
+        user,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -47,7 +47,7 @@ export default function SignUpByPhone() {
     try {
       const data = await userConfirmation.confirm(otp);
       setUserHandler(data.user);
-      postCustomer(user);
+      postCustomer(data.user);
       navigate("/home");
       console.log(data);
     } catch (err) {

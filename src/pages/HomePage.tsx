@@ -8,14 +8,11 @@ import { postCustomer } from "../utils/ApiUtils.js";
 import { UserAuth } from "../context/AuthContext";
 
 export default function HomePage() {
-  // const { user } = UserAuth();
+  const { user } = UserAuth();
 
   const navigate = useNavigate();
-  // console.log("home", user);
+  console.log("home", user);
 
-  // useEffect(() => {
-  //   postCustomer(user);
-  // }, []);
 
   return (
     <Flex
