@@ -64,8 +64,6 @@ const waitForCustomerData = async () => {
   await postRequest(customerData, { request: "example" });
 };
 
-waitForCustomerData();
-
 export {
   getCustomer,
   postCustomer,
@@ -75,4 +73,5 @@ export {
   getRequestByid,
   startRide,
   cancelRide,
+  waitForCustomerData
 };
