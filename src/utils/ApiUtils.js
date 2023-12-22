@@ -75,6 +75,4 @@ export {
   getRequestByid,
   startRide,
   cancelRide,
-  getCustomer,
-  postCustomer,
 };
