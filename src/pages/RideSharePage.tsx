@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useEffect } from "react";
 import {
   Flex,
   Image,
@@ -16,8 +16,16 @@ import { ArrowForwardIcon, InfoIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import NavBar from "../components/NavBar";
 import DataContext from "../context/DataContext";
 
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStep } from "../redux/slices/formProgressSlice.js";
+import { RootState } from "../redux/store.js";
+
 const RideSharePage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { nthStep } = useSelector((state: RootState) => state.formProgress);
+
   const { rideData, setRideData } = useContext(DataContext);
   const toInputRef = useRef<HTMLInputElement>(null);
   const fromInputRef = useRef<HTMLInputElement>(null);
@@ -31,11 +39,27 @@ const RideSharePage = () => {
     });
   };
 
+  const navigateHandler = () => {
+    if (rideData.ride_to && rideData.ride_from) {
+      navigate("/choosecar");
+      dispatch(incrementStep());
+    } else {
+      alert("Please give detail on your ride!");
+    }
+  };
+
   const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY;
   const EMBED_DIRECTION_API_URL = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodeURIComponent(
     rideData.ride_from
   )}&destination=${encodeURIComponent(rideData.ride_to)}`;
   // Implement your component logic here
+
+  useEffect(() => {
+    if (nthStep < 3) {
+      navigate("/scheduleride");
+    }
+  }, [nthStep]);
+
   return (
     <>
       {/* HEADING */}
@@ -112,7 +136,10 @@ const RideSharePage = () => {
                 ref={toInputRef}
                 onChange={() => {
                   if (toInputRef.current) {
-                    setRideData({ ...rideData, ride_to: toInputRef.current.value });
+                    setRideData({
+                      ...rideData,
+                      ride_to: toInputRef.current.value,
+                    });
                   }
                 }}
                 value={rideData.ride_to}
@@ -127,7 +154,7 @@ const RideSharePage = () => {
           text="Next"
           size="lg"
           icon={<ArrowForwardIcon />}
-          onClickHandler={() => navigate("/choosecar")}
+          onClickHandler={navigateHandler}
         />
       </Flex>
       <NavBar />

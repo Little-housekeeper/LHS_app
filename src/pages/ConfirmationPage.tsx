@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Flex, Text, Image } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router";
@@ -9,15 +9,30 @@ import DataContext from "../context/DataContext";
 import { UserAuth } from "../context/AuthContext";
 import { postRequest } from "../utils/ApiUtils";
 
+import { useDispatch, useSelector } from "react-redux";
+import { reset } from "../redux/slices/formProgressSlice.js";
+import { RootState } from "../redux/store.js";
+
 export default function ConfirmationPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { nthStep } = useSelector((state: RootState) => state.formProgress);
+
   const { rideData } = useContext(DataContext);
   const { user } = UserAuth();
 
   const handleConfirmClick = async () => {
     await postRequest(user, rideData);
+    dispatch(reset());
     navigate("/home");
   };
+
+  useEffect(() => {
+    if (nthStep < 7) {
+      navigate("/choosetime");
+    }
+  }, [nthStep]);
   return (
     <>
       <Flex width={"100%"} align={"end"} justify={"center"} mt={"2em"}>

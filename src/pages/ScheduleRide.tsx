@@ -8,18 +8,28 @@ import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
 import NavBar from "../components/NavBar";
 
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStep } from "../redux/slices/formProgressSlice.js";
+import { RootState } from "../redux/store.js";
+
 const ScheduleRide = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { nthStep } = useSelector((state: RootState) => state.formProgress);
 
   const { setRideData } = useContext(DataContext);
 
   const [selectedDate, setSelectedDate] = useState<any>(null); // Update the type here
 
   useEffect(() => {
+    if (nthStep < 2) {
+      navigate("/home");
+    }
     if (selectedDate) {
       setRideData((prevData: any) => ({
         ...prevData,
-        scheduled_date: selectedDate.date.toISOString().split('T')[0],
+        scheduled_date: selectedDate.date.toISOString().split("T")[0],
       }));
     }
   }, [selectedDate, setRideData]);
@@ -33,6 +43,15 @@ const ScheduleRide = () => {
     // Set the new selected date and change its background color
     setSelectedDate(e);
     e.dayEl.style.backgroundColor = "#41C9EB";
+  };
+
+  const navigateHandler = () => {
+    if (selectedDate) {
+      navigate("/rideshare");
+      dispatch(incrementStep());
+    } else {
+      alert("Please select a date!");
+    }
   };
 
   return (
@@ -53,10 +72,7 @@ const ScheduleRide = () => {
           dateClick={handleDateClick}
         />
       </Box>
-      <VersaButton
-        text="CONFIRM"
-        onClickHandler={() => navigate("/rideshare")}
-      />
+      <VersaButton text="CONFIRM" onClickHandler={navigateHandler} />
       <NavBar />
     </Flex>
   );
