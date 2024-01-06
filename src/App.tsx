@@ -38,7 +38,7 @@ function App() {
     seats_num: 0,
     chosen_time: "",
   }); // Update the type here
-  console.log("cur", rideData)
+  console.log("cur", rideData);
 
   const [customerData, setCustomerData] = useState<any>([]);
   useEffect(() => {
@@ -76,7 +76,10 @@ function App() {
                 path="/activitydetails/:id"
                 element={<ActivityDetailsPage />}
               />
-              <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
+              <Route
+                path="/awaitingdriver/:id"
+                element={<AwaitingDriverPage />}
+              />
               <Route path="/driverhomepage" element={<DriverHomePage />} />
             </Route>
 
