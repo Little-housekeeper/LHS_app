@@ -19,6 +19,7 @@ import DataContext from "./context/DataContext";
 import CodeConfirmation from "./pages/CodeConfirmation";
 import SignUpByPhone from "./pages/SignUpByPhone";
 import AccountPage from "./pages/AccountPage";
+import MrChenPage from "./pages/MrChenPage.js";
 
 function App() {
   const [rideData, setRideData] = useState<any>({
@@ -38,8 +39,6 @@ function App() {
   useEffect(() => {
     getDriver().then((res) => setDriverData(res));
   }, []);
-
-  console.log("driver", driverData);
 
   return (
     <>
@@ -64,7 +63,10 @@ function App() {
               path="/activitydetails/:id"
               element={<ActivityDetailsPage />}
             />
-            <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
+            <Route
+              path="/awaitingdriver/:id"
+              element={<AwaitingDriverPage />}
+            />
             <Route path="/scheduleride" element={<ScheduleRide />} />
             <Route path="/driverhomepage" element={<DriverHomePage />} />
             <Route path="/account" element={<AccountPage />} />
@@ -75,6 +77,7 @@ function App() {
             />
             <Route path="/signupbyphone" element={<SignUpByPhone />} />
             <Route path="/codeconfirmation" element={<CodeConfirmation />} />
+            <Route path="/mrchen" element={<MrChenPage />} />
           </Routes>
         </DataContext.Provider>
       </AuthContextProvider>
