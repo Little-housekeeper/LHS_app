@@ -28,6 +28,8 @@ import CodeConfirmation from "./pages/CodeConfirmation";
 import SignUpByPhone from "./pages/SignUpByPhone";
 import AccountPage from "./pages/AccountPage";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import MrChenPage from "./pages/MrChenPage.js";
+
 function App() {
   const [rideData, setRideData] = useState<any>({
     scheduled_date: "",
@@ -47,8 +49,6 @@ function App() {
   useEffect(() => {
     getDriver().then((res) => setDriverData(res));
   }, []);
-
-  console.log("driver", driverData);
 
   return (
     <>
@@ -87,6 +87,7 @@ function App() {
             />
             <Route path="/signupbyphone" element={<SignUpByPhone />} />
             <Route path="/codeconfirmation" element={<CodeConfirmation />} />
+            <Route path="/mrchen" element={<MrChenPage />} />
           </Routes>
         </DataContext.Provider>
       </AuthContextProvider>
