@@ -15,32 +15,46 @@ const getCustomer = async () => {
   return data.data;
 };
 
+const checkIfCustomerExists = async (customer) => {
+  const customers = await axios.get("http://localhost:3001/customers");
+  const filteredCustomers = customers.filter(
+    (item) =>
+      (item.phone_number == customer?.phoneNumber && customer?.phoneNumber) ||
+      (item.email == customer?.email && customer?.email)
+  );
+  console.log(filteredCustomers.length == 0);
+  return filteredCustomers.length == 0;
+};
+
 const postCustomer = async (customer) => {
   const body = {
     phone_number: customer?.phoneNumber,
     email: customer?.email,
-    name: customer?.displayName,
   };
+  console.log(body);
 
-  const customers = await axios.get("http://localhost:3001/customers");
-  const filteredCustomers = customers.data.filter(
+  const customers = await getCustomer(); // Wait for customers to load
+  const filteredCustomers = customers.filter(
     (item) =>
-      item.phone_number == customer?.phoneNumber ||
-      item.email == customer?.email
+      (item.phone_number == customer?.phoneNumber && customer?.phoneNumber) ||
+      (item.email == customer?.email && customer?.email)
   );
+  console.log(filteredCustomers);
 
   if (filteredCustomers.length == 0) {
+    console.log("setn");
     await axios.post("http://localhost:3001/customers/send", body);
   }
 };
 
 const postRequest = async (customer, request) => {
-  const phone_number = null;
-  const email = "customer2@example.com";
+  console.log(request);
+  const { email, phoneNumber } = customer;
+
   if (email || phone_number) {
     const { data } = await axios.post("http://localhost:3001/customers/id", {
       email: email,
-      phone_number: phone_number,
+      phone_number: phoneNumber,
     });
     const body = {
       customer_id: data.id,
@@ -82,4 +96,5 @@ export {
   startRide,
   cancelRide,
   waitForCustomerData,
+  checkIfCustomerExists,
 };

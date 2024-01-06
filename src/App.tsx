@@ -25,7 +25,7 @@ function App() {
     scheduled_date: "",
     ride_from: "LAX International Airport",
     ride_to: "",
-    driver_id: -1,
+    seats_num: 0,
     chosen_time: "",
   }); // Update the type here
 
@@ -39,7 +39,7 @@ function App() {
     getDriver().then((res) => setDriverData(res));
   }, []);
 
-  console.log('driver', driverData)
+  console.log("driver", driverData);
 
   return (
     <>

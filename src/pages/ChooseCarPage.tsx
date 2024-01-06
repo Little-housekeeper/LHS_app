@@ -8,7 +8,6 @@ import NavBar from "../components/NavBar";
 import CarOption from "../components/CarOption";
 import DataContext from "../context/DataContext";
 import { getDriver } from "../utils/ApiUtils";
-import axios from "axios";
 
 //FAKE DATA FOR CARS
 // const fakeData = [
@@ -19,48 +18,22 @@ import axios from "axios";
 //   { id: 5, seats_num: 6, price: 20 },
 // ];
 
-interface Car {
-  id: number;
-  seats_num: number;
-  price: number;
-}
-
 const ChooseCarPage = () => {
   const navigate = useNavigate();
 
   const { rideData, setRideData } = useContext(DataContext);
-  const [currentChosenCar, setCurrentChosenCar] = useState<Car | null>(null);
-  const [driverData, setDriverData] = useState<any>([]);
+  const [currentChosenCar, setCurrentChosenCar] = useState<number | null>(null);
   console.log(rideData);
 
   useEffect(() => {
-    getDriver().then((res: any) => {
-      setDriverData(res);
-    });
-  }, []);
-
-  useEffect(() => {
     if (currentChosenCar) {
-      setRideData({ ...rideData, driver_id: currentChosenCar.id });
+      setRideData({ ...rideData, seats_num: currentChosenCar });
     }
   }, [currentChosenCar]);
 
-  const handleCarOptionClick = (car: Car) => {
-    setCurrentChosenCar(car);
+  const handleCarOptionClick = (seats_num: number) => {
+    setCurrentChosenCar(seats_num);
   };
-
-  const carOptions = driverData.map((car: any) => {
-    const isChosen = currentChosenCar && currentChosenCar.id === car.id;
-    return (
-      <CarOption
-        key={car.id}
-        seats_num={car.seats_num}
-        price={car.price}
-        isChosen={isChosen ? true : false}
-        onClick={() => handleCarOptionClick(car)}
-      />
-    );
-  });
 
   return (
     <>
@@ -112,7 +85,19 @@ const ChooseCarPage = () => {
             mb={10}
             overflowY={"scroll"}
           >
-            {carOptions}
+            {/* {carOptions} */}
+            <CarOption
+              seats_num={4}
+              price={80}
+              isChosen={currentChosenCar === 4 ? true : false}
+              onClick={() => handleCarOptionClick(4)}
+            />
+            <CarOption
+              seats_num={6}
+              price={90}
+              isChosen={currentChosenCar === 6 ? true : false}
+              onClick={() => handleCarOptionClick(6)}
+            />
           </Flex>
         </Flex>
         <VersaButton
