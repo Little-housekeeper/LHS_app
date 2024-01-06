@@ -13,7 +13,6 @@ export default function ConfirmationPage() {
   const navigate = useNavigate();
   const { rideData } = useContext(DataContext);
   const { user } = UserAuth();
-  console.log(user);
 
   const handleConfirmClick = async () => {
     await postRequest(user, rideData);
@@ -67,7 +66,7 @@ export default function ConfirmationPage() {
         <Text>{rideData?.schedule_date}</Text>
         <Text>{rideData?.ride_from}</Text>
         <Text>{rideData?.ride_to}</Text>
-        <Text>{rideData?.driver_id}</Text>
+        <Text>{rideData?.seats_num}</Text>
         <Text>{rideData?.chosen_time}</Text>
       </Flex>
       <NavBar />

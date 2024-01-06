@@ -4,7 +4,7 @@ import RideShareGraphic from "../assets/images/hompage/RideshareGraphic.png";
 import NavBar from "../components/NavBar";
 import VersaButton from "../components/VersaButton";
 import { useEffect } from "react";
-import { postCustomer } from "../utils/ApiUtils.js";
+import { postCustomer, checkIfCustomerExists } from "../utils/ApiUtils.js";
 import { UserAuth } from "../context/AuthContext";
 import DataContext from "../context/DataContext";
 
@@ -15,6 +15,10 @@ export default function HomePage() {
   useEffect(() => {
     if (role === "driver") {
       navigate("/driverhomepage");
+    } else if (user) {
+      if (!checkIfCustomerExists(user)) {
+        postCustomer(user);
+      }
     }
   }, []);
   console.log(user);
