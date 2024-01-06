@@ -1,4 +1,11 @@
-import { Flex, Text, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Button,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import {
   getUnapprovedRequests,
@@ -13,6 +20,11 @@ const MrChenPage = () => {
 
   const [chosenCustomer, setChosenCustomer] = useState<any>(null);
   const [chosenDriver, setChosenDriver] = useState<any>(null);
+
+  const [newDriverName, setNewDriverName] = useState<string>("");
+  const [newDriverPhoneNumber, setNewDriverPhoneNumber] = useState<string>("");
+  const [newDriverLicensePlate, setNewDriverLicensePlate] =
+    useState<string>("");
 
   useEffect(() => {
     getUnapprovedRequests().then((res: any) => {
@@ -77,6 +89,9 @@ const MrChenPage = () => {
     <>
       {step === 1 && (
         <>
+          <Button colorScheme="green" onClick={() => setStep(0)}>
+            Add New Driver
+          </Button>
           <Text>Pending Customer</Text>
           <Flex
             flexDir={"column"}
@@ -148,6 +163,35 @@ const MrChenPage = () => {
             Back to Pending
           </Button>
         </>
+      )}
+      {step === 0 && (
+        <Flex flexDir={"column"} gap={3}>
+          <Text>Enter New Driver Information</Text>
+          <Input
+            onChange={(e) => setNewDriverName(e.target.value)}
+            placeholder="Name"
+          />
+          <InputGroup>
+            <InputLeftAddon>+1</InputLeftAddon>
+            <Input
+              onChange={(e) => setNewDriverPhoneNumber(e.target.value)}
+              type="tel"
+              placeholder="phone number"
+            />
+          </InputGroup>
+          <Input
+            onChange={(e) => setNewDriverLicensePlate(e.target.value)}
+            placeholder="License Plate (EX: 7XYZ999)"
+          />
+          <Button
+            onClick={() => {
+              setStep(4);
+            }}
+            colorScheme="green"
+          >
+            Confirm
+          </Button>
+        </Flex>
       )}
     </>
   );

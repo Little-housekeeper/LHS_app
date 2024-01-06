@@ -8,11 +8,13 @@ import chatButton from "../assets/images/chatButton.png";
 import driver_pic from "../assets/images/driver_pic.png";
 import location_marker from "../assets/images/location_marker.png";
 import { getRequestByid, startRide, cancelRide } from "../utils/ApiUtils";
+import { useNavigate } from "react-router";
 
 const ActivityDetailsPage = () => {
   const { id: request_id } = useParams();
   const [activityData, setActivityData] = useState<any>([]);
   console.log(activityData);
+  const navigate = useNavigate();
 
   const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY;
   let EMBED_DIRECTION_API_URL = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodeURIComponent(
@@ -72,6 +74,7 @@ const ActivityDetailsPage = () => {
           <VersaButton
             onClickHandler={() => {
               startRide(activityData?.id);
+              navigate(`/awaitingdriver/${request_id}`);
             }}
             text="Start Ride"
             size="lg"

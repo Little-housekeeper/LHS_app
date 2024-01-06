@@ -40,8 +40,6 @@ function App() {
     getDriver().then((res) => setDriverData(res));
   }, []);
 
-
-
   return (
     <>
       <AuthContextProvider>
@@ -65,7 +63,10 @@ function App() {
               path="/activitydetails/:id"
               element={<ActivityDetailsPage />}
             />
-            <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
+            <Route
+              path="/awaitingdriver/:id"
+              element={<AwaitingDriverPage />}
+            />
             <Route path="/scheduleride" element={<ScheduleRide />} />
             <Route path="/driverhomepage" element={<DriverHomePage />} />
             <Route path="/account" element={<AccountPage />} />
