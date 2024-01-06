@@ -4,10 +4,18 @@ import { useNavigate } from "react-router";
 import TitleText from "../components/TitleText";
 import VersaButton from "../components/VersaButton";
 import NavBar from "../components/NavBar";
+import { useState } from "react";
 
 export default function FeesPage() {
   const navigate = useNavigate();
-
+  const [acknowledged, setAcknowledged] = useState(false);
+  const navigateHandler = () => {
+    if (acknowledged) {
+      navigate("/choosetime");
+    } else {
+      alert("Please acknowledge!");
+    }
+  };
   return (
     <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
       {/* HEADING */}
@@ -41,8 +49,15 @@ export default function FeesPage() {
       <Flex marginBottom={"12em"}></Flex>
 
       <Flex flexDir={"column"} gap={"2em"}>
-        <Checkbox>I Acknowledge</Checkbox>
-        <VersaButton text="Next" size="lg" icon={<ArrowForwardIcon />} onClickHandler={() => navigate("/choosetime")}/>
+        <Checkbox onChange={() => setAcknowledged((prev) => !prev)}>
+          I Acknowledge
+        </Checkbox>
+        <VersaButton
+          text="Next"
+          size="lg"
+          icon={<ArrowForwardIcon />}
+          onClickHandler={navigateHandler}
+        />
       </Flex>
       <NavBar />
     </Flex>

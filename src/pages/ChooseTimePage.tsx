@@ -57,6 +57,13 @@ export default function ChooseTimePage() {
 
   console.log(allAvailableTimes);
 
+  const navigateHandler = () => {
+    if (chosenAvailableTime) {
+      navigate("/confirmation");
+    } else {
+      alert("Please select a time");
+    }
+  };
   return (
     <Flex flexDir={"column"}>
       {/* header */}
@@ -116,7 +123,7 @@ export default function ChooseTimePage() {
         <VersaButton
           text="CONFIRM"
           size="lg"
-          onClickHandler={() => navigate("/confirmation")}
+          onClickHandler={navigateHandler}
         />
       </Flex>
       <NavBar />

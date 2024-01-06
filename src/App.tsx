@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  BrowserRouter,
+  Link,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import { getCustomer, getDriver } from "./utils/ApiUtils.js";
 import LoginPage from "./pages/LoginPage";
@@ -19,7 +26,7 @@ import DataContext from "./context/DataContext";
 import CodeConfirmation from "./pages/CodeConfirmation";
 import SignUpByPhone from "./pages/SignUpByPhone";
 import AccountPage from "./pages/AccountPage";
-
+import PrivateRoutes from "./utils/PrivateRoutes";
 function App() {
   const [rideData, setRideData] = useState<any>({
     scheduled_date: "",
@@ -54,20 +61,23 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/rideshare" element={<RideSharePage />} />
-            <Route path="/choosecar" element={<ChooseCarPage />} />
-            <Route path="/fees" element={<FeesPage />} />
-            <Route path="/choosetime" element={<ChooseTimePage />} />
-            <Route path="/confirmation" element={<ConfirmationPage />} />
-            <Route
-              path="/activitydetails/:id"
-              element={<ActivityDetailsPage />}
-            />
-            <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
-            <Route path="/scheduleride" element={<ScheduleRide />} />
-            <Route path="/driverhomepage" element={<DriverHomePage />} />
-            <Route path="/account" element={<AccountPage />} />
+            <Route path="/" element={<PrivateRoutes />}>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/scheduleride" element={<ScheduleRide />} />
+              <Route path="/rideshare" element={<RideSharePage />} />
+              <Route path="/choosecar" element={<ChooseCarPage />} />
+              <Route path="/fees" element={<FeesPage />} />
+              <Route path="/choosetime" element={<ChooseTimePage />} />
+              <Route path="/confirmation" element={<ConfirmationPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route
+                path="/activitydetails/:id"
+                element={<ActivityDetailsPage />}
+              />
+              <Route path="/awaitingdriver" element={<AwaitingDriverPage />} />
+              <Route path="/driverhomepage" element={<DriverHomePage />} />
+            </Route>
+
             <Route path="/signup" element={<SignUpPage />} />
             <Route
               path="/signconfirmation"

@@ -31,6 +31,14 @@ const RideSharePage = () => {
     });
   };
 
+  const navigateHandler = () => {
+    if (rideData.ride_to && rideData.ride_from) {
+      navigate("/choosecar");
+    } else {
+      alert("Please give detail on your ride!");
+    }
+  };
+
   const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY;
   const EMBED_DIRECTION_API_URL = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${encodeURIComponent(
     rideData.ride_from
@@ -112,7 +120,10 @@ const RideSharePage = () => {
                 ref={toInputRef}
                 onChange={() => {
                   if (toInputRef.current) {
-                    setRideData({ ...rideData, ride_to: toInputRef.current.value });
+                    setRideData({
+                      ...rideData,
+                      ride_to: toInputRef.current.value,
+                    });
                   }
                 }}
                 value={rideData.ride_to}
@@ -127,7 +138,7 @@ const RideSharePage = () => {
           text="Next"
           size="lg"
           icon={<ArrowForwardIcon />}
-          onClickHandler={() => navigate("/choosecar")}
+          onClickHandler={navigateHandler}
         />
       </Flex>
       <NavBar />

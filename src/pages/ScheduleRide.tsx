@@ -19,7 +19,7 @@ const ScheduleRide = () => {
     if (selectedDate) {
       setRideData((prevData: any) => ({
         ...prevData,
-        scheduled_date: selectedDate.date.toISOString().split('T')[0],
+        scheduled_date: selectedDate.date.toISOString().split("T")[0],
       }));
     }
   }, [selectedDate, setRideData]);
@@ -33,6 +33,14 @@ const ScheduleRide = () => {
     // Set the new selected date and change its background color
     setSelectedDate(e);
     e.dayEl.style.backgroundColor = "#41C9EB";
+  };
+
+  const navigateHandler = () => {
+    if (selectedDate) {
+      navigate("/rideshare");
+    } else {
+      alert("Please select a date!");
+    }
   };
 
   return (
@@ -53,10 +61,7 @@ const ScheduleRide = () => {
           dateClick={handleDateClick}
         />
       </Box>
-      <VersaButton
-        text="CONFIRM"
-        onClickHandler={() => navigate("/rideshare")}
-      />
+      <VersaButton text="CONFIRM" onClickHandler={navigateHandler} />
       <NavBar />
     </Flex>
   );

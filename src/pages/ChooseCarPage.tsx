@@ -35,6 +35,14 @@ const ChooseCarPage = () => {
     setCurrentChosenCar(seats_num);
   };
 
+  const navigateHandler = () => {
+    if (currentChosenCar) {
+      navigate("/fees");
+    } else {
+      alert("Please choose your car!");
+    }
+  };
+
   return (
     <>
       {/* HEADING */}
@@ -103,7 +111,7 @@ const ChooseCarPage = () => {
         <VersaButton
           text="CONFIRM"
           size="lg"
-          onClickHandler={() => navigate("/fees")}
+          onClickHandler={navigateHandler}
         />
       </Flex>
       <NavBar />
