@@ -9,6 +9,10 @@ import CarOption from "../components/CarOption";
 import DataContext from "../context/DataContext";
 import { getDriver } from "../utils/ApiUtils";
 
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStep } from "../redux/slices/formProgressSlice.js";
+import { RootState } from "../redux/store.js";
+
 //FAKE DATA FOR CARS
 // const fakeData = [
 //   { id: 1, seats_num: 4, price: 80 },
@@ -19,17 +23,24 @@ import { getDriver } from "../utils/ApiUtils";
 // ];
 
 const ChooseCarPage = () => {
+  console.log("HEREERR");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { nthStep } = useSelector((state: RootState) => state.formProgress);
 
   const { rideData, setRideData } = useContext(DataContext);
   const [currentChosenCar, setCurrentChosenCar] = useState<number | null>(null);
   console.log(rideData);
 
   useEffect(() => {
+    if (nthStep < 4) {
+      console.log("FK U HERE !!!!!!!!!!");
+      navigate("/rideshare");
+    }
     if (currentChosenCar) {
       setRideData({ ...rideData, seats_num: currentChosenCar });
     }
-  }, [currentChosenCar]);
+  }, [currentChosenCar, nthStep]);
 
   const handleCarOptionClick = (seats_num: number) => {
     setCurrentChosenCar(seats_num);
@@ -38,6 +49,7 @@ const ChooseCarPage = () => {
   const navigateHandler = () => {
     if (currentChosenCar) {
       navigate("/fees");
+      dispatch(incrementStep());
     } else {
       alert("Please choose your car!");
     }

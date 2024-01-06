@@ -7,6 +7,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { AuthContextProvider } from "./context/AuthContext";
 import { getCustomer, getDriver } from "./utils/ApiUtils.js";
 import LoginPage from "./pages/LoginPage";
@@ -35,6 +36,7 @@ function App() {
     seats_num: 0,
     chosen_time: "",
   }); // Update the type here
+  console.log("cur", rideData)
 
   const [customerData, setCustomerData] = useState<any>([]);
   useEffect(() => {

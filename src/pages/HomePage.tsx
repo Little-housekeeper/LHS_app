@@ -8,9 +8,13 @@ import { postCustomer, checkIfCustomerExists } from "../utils/ApiUtils.js";
 import { UserAuth } from "../context/AuthContext";
 import DataContext from "../context/DataContext";
 
+import { useDispatch } from "react-redux";
+import { incrementStep } from "../redux/slices/formProgressSlice.js";
+
 export default function HomePage() {
   const { user, role } = UserAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (role === "driver") {
@@ -58,7 +62,10 @@ export default function HomePage() {
         borderRadius={"50px"}
         h={"20em"}
         w={"20em"}
-        onClick={() => navigate("/scheduleride")}
+        onClick={() => {
+          navigate("/scheduleride");
+          dispatch(incrementStep());
+        }}
       >
         <Text
           color={"white"}

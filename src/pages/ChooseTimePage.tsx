@@ -7,6 +7,10 @@ import AvailableTimes from "../components/AvailableTimes";
 import VersaButton from "../components/VersaButton";
 import DataContext from "../context/DataContext";
 
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStep } from "../redux/slices/formProgressSlice.js";
+import { RootState } from "../redux/store.js";
+
 export default function ChooseTimePage() {
   // const [currentChosenTime, setCurrentChosenTime] = useState(-1);
 
@@ -15,6 +19,9 @@ export default function ChooseTimePage() {
   // };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { nthStep } = useSelector((state: RootState) => state.formProgress);
 
   // this current date will actually be coming from the choose date page
   const currentDate = new Date().toLocaleDateString("en-US", {
@@ -28,11 +35,14 @@ export default function ChooseTimePage() {
   const [chosenAvailableTime, setChosenAvailableTime] = useState("");
 
   useEffect(() => {
+    if (nthStep < 6) {
+      navigate("/fees");
+    }
     setRideData((prevData: any) => ({
       ...prevData,
       chosen_time: chosenAvailableTime,
     }));
-  }, [chosenAvailableTime]);
+  }, [chosenAvailableTime, nthStep]);
 
   console.log(rideData);
 
@@ -60,6 +70,7 @@ export default function ChooseTimePage() {
   const navigateHandler = () => {
     if (chosenAvailableTime) {
       navigate("/confirmation");
+      dispatch(incrementStep());
     } else {
       alert("Please select a time");
     }

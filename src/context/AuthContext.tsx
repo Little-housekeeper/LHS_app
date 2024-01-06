@@ -42,6 +42,7 @@ export const AuthContextProvider = ({
     signInWithPopup(auth, provider)
       .then((res) => {
         setUser(res.user);
+
         fetchRole(res.user); // Fetch role after signing in
         postCustomer(res.user);
       })

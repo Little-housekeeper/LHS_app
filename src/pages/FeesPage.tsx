@@ -4,18 +4,33 @@ import { useNavigate } from "react-router";
 import TitleText from "../components/TitleText";
 import VersaButton from "../components/VersaButton";
 import NavBar from "../components/NavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStep } from "../redux/slices/formProgressSlice.js";
+import { RootState } from "../redux/store.js";
 
 export default function FeesPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { nthStep } = useSelector((state: RootState) => state.formProgress);
+
   const [acknowledged, setAcknowledged] = useState(false);
   const navigateHandler = () => {
     if (acknowledged) {
       navigate("/choosetime");
+      dispatch(incrementStep());
     } else {
       alert("Please acknowledge!");
     }
   };
+
+  useEffect(() => {
+    if (nthStep < 5) {
+      navigate("/choosecar");
+    }
+  }, [nthStep]);
   return (
     <Flex justifyContent={"center"} alignItems={"center"} flexDir={"column"}>
       {/* HEADING */}
