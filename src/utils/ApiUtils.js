@@ -86,6 +86,19 @@ const waitForCustomerData = async () => {
   await postRequest(customerData, { request: "example" });
 };
 
+const getUnapprovedRequests = async () => {
+  const data = await axios.get("http://localhost:3001/request/unapproved");
+  return data.data;
+};
+
+const matchRequestWithDriver = async (requestId, driverId) => {
+  const body = {
+    request_id: requestId,
+    driver_id: driverId
+  };
+  await axios.post("http://localhost:3001/request/match", body);
+};
+
 export {
   getCustomer,
   postCustomer,
@@ -97,4 +110,6 @@ export {
   cancelRide,
   waitForCustomerData,
   checkIfCustomerExists,
+  getUnapprovedRequests,
+  matchRequestWithDriver,
 };
